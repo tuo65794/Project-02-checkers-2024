@@ -1,6 +1,5 @@
-# Project Name
-Put here a short paragraph describing your project. 
-Adding an screenshot or a mockup of your application in action would be nice.  
+# Checkers + 
+"Classic Checkers+ " is an exciting Python-based game project that offers a modern twist on the classic game of checkers. Upon launching the game, users are presented with a prompt to choose between two game modes: Player vs. Player (PvP) or Player vs. AI. The game adheres to standard checkers rules with a few intriguing alterations. 
 
 ![This is a screenshot.](images.png)
 # How to run
