@@ -24,4 +24,7 @@ Follow this project board to know the latest status of the project: [http://...]
 - Use InteliJ 11
 - Specify additional library to download if needed 
 - What file and target to compile and run. 
-- What is expected to happen when the app start. 
+- What is expected to happen when the app start.
+
+### Brainstorming Board
+- https://lucid.app/lucidspark/128ef961-9edf-4a88-8eaf-992d7faa5d74/edit?viewport_loc=-350%2C-445%2C3025%2C1429%2C0_0&invitationId=inv_e2d583a2-18f2-4676-8253-7a01ce813867
