@@ -15,6 +15,16 @@ screen = pygame.display.set_mode([Width, Height])
 #title of the gaame for screen 
 pygame.display.set_caption("Checkers+")  
 
+
+'''
+# Load background music (replace with the actual music file path)
+pygame.mixer.music.load("music_file.mp3")
+
+# Play the music indefinitely
+pygame.mixer.music.play(-1)
+
+'''
+
 # title for display 
 game_title = "Checkers+"
 message = "Checkers with a twist! For all ages and skill levels!" # can change to whatever we feel is best
