@@ -19,6 +19,10 @@ pygame.display.set_caption("Checkers+")
 game_title = "Checkers+"
 message = "Checkers with a twist! For all ages and skill levels!" # can change to whatever we feel is best
 
+background_image = pygame.image.load("checkers.jpg")
+background_image = pygame.transform.scale(background_image, (Width, Height))  
+
+
 title_font = pygame.font.Font(None, 64)
 message_font = pygame.font.Font(None, 32)
 
@@ -42,8 +46,8 @@ def main():
                 #if pvp_button().collidepoint(event.pos):
                    # start game
 
-        # fill the background with grey
-        screen.fill((0, 0, 0))
+        #image of the background
+        screen.blit(background_image, (0, 0))
 
         #tile the background
         screen.blit(title_text, title_rect)
