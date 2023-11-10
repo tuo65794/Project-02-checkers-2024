@@ -2,12 +2,14 @@
 # created a menu file for menu operations
 # can be changed or refactored if we rather keep menu functions in main.py
 
+# CURRENTLY NOT BEING USED IN main.py
+
 import pygame
 Width, Height = 1000, 700 # match size from main.py
 screen = pygame.display.set_mode([Width, Height])
 
 # create a button for player versus player mode
-def pvp_button():
+def menu_buttons():
     color = (128, 128, 128) # grey
     cursor_color = (100, 100, 100) # darker grey
     position = (Width // 2-150, Height // 3-25)
