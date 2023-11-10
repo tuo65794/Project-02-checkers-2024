@@ -16,14 +16,14 @@ tar -xzf
 - You will see Hello World! on your terminal. 
 
 # How to contribute
-Follow this project board to know the latest status of the project: [https://github.com/orgs/cis3296f23/projects/116]([https://github.com/orgs/cis3296f23/projects/116])  
+Follow this project board to know the latest status of the project: https://github.com/orgs/cis3296f23/projects/116  
 
 # How to build
-- Use this github repository: [https://github.com/cis3296f23/Project-02-checkers.git]([https://github.com/cis3296f23/Project-02-checkers.git])
+- Use this github repository: https://github.com/cis3296f23/Project-02-checkers.git
 - For the most stable release and latest changes, please refer to the main branch.
-- Python is the programming language of choice for this project. For Python installation instruction please refer to this link: [https://wiki.python.org/moin/BeginnersGuide/Download]([https://wiki.python.org/moin/BeginnersGuide/Download])
+- Python is the programming language of choice for this project. For Python installation instruction please refer to this link: https://wiki.python.org/moin/BeginnersGuide/Download
 - May use any IDE to assist in Python development
-- Pygame will be used for this project. For Pygame installation instructions, please refer to this link: [https://www.pygame.org/wiki/GettingStarted]([https://www.pygame.org/wiki/GettingStarted])
+- Pygame will be used for this project. For Pygame installation instructions, please refer to this link: https://www.pygame.org/wiki/GettingStarted
 - What file and target to compile and run.
 - When the game starts, the user will be presented with a main menu to select next course of action.
 
