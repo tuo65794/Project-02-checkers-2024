@@ -9,6 +9,9 @@ Checkers+ is an exciting Python-based game that offers a modern twist on the cla
 - Pygame will be used for this project. For Pygame installation instructions, please refer to this link: https://www.pygame.org/wiki/GettingStarted
 
 # Build and Installation Guide
+- Download the latest release from this repository. For Windows users, inside the release should be a folder containing the Checkers+ application. After extracting the folder,
+simply run the application from inside the folder.
+- If you would like to download the repository and build the application using Python tools yourself (for users who are interested in contributing or changing code):
 - First, if your machine does not have Python, download the latest version of Python. This can be found here: https://www.python.org/downloads/
 - Create a folder and download the most recent release in this repository. Import all files into this folder.
 - Open the command prompt on your machine, and type "pip install pyinstaller". This will install PyInstaller in your Python's Scripts Folder. The Scripts folder can be found inside your Python folder.
@@ -17,9 +20,6 @@ Checkers+ is an exciting Python-based game that offers a modern twist on the cla
 - Once PyInstaller is finished, your folder containing the files should now have a new folder inside titled "dist". Inside this folder is the Checkers+ application under the title "main".
 - If you try running the application, you will notice there are errors that prevent you from doing so. To fix this, copy and paste the application outside of the "dist" folder, where all the files from the current release are held.
 - Running the application should now work!
-
-Note:
-- Due to current issues with PyInstaller, our release does not include a pre-existing application that users can run. Manually installing and running using the previous steps is required.
 
 # Brainstorming Board
 - This board contains the initial features list as a path we would expect an intermediate player to take using Checkers+.
