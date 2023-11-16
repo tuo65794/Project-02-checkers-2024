@@ -16,7 +16,7 @@ pygame.mixer.init() # initialize pygame mixer for music
 Width, Height = 1000, 700 # updated size
 screen = pygame.display.set_mode([Width, Height])
 
-#title of the gaame for screen 
+#title of the game for screen 
 pygame.display.set_caption("Checkers+")
 
 # background music
@@ -543,4 +543,60 @@ def show_leaderboard():
                     return  # exit tutorial and return to menu
 
 
+def start_game_menu():
+    start_game_screen = pygame.display.set_mode([Width, Height])
+    pygame.display.set_caption("Start Game Menu")
+
+    start_game_font = pygame.font.Font(None, 36)
+    start_game_text = start_game_font.render("Choose Game Mode", True, (255, 255, 255))
+    start_game_rect = start_game_text.get_rect(center=(Width // 2, 50))
+    start_game_screen.blit(start_game_text, start_game_rect)
+
+    # Create buttons for different game modes
+    pvp_button_rect = pygame.Rect(Width // 2 - 150, Height // 3, 300, 50)
+    pvc_button_rect = pygame.Rect(Width // 2 - 150, Height // 3 + 60, 300, 50)
+
+    color = (128, 128, 128)  # grey
+    cursor_color = (100, 100, 100)  # darker grey
+
+    pygame.draw.rect(start_game_screen, color, pvp_button_rect)
+    pygame.draw.rect(start_game_screen, color, pvc_button_rect)
+
+    pvp_button_text = start_game_font.render("Player vs Player", True, (255, 255, 255))
+    pvc_button_text = start_game_font.render("Player vs Computer", True, (255, 255, 255))
+
+    pvp_button_text_rect = pvp_button_text.get_rect(center=(Width // 2, Height // 3 + 25))
+    pvc_button_text_rect = pvc_button_text.get_rect(center=(Width // 2, Height // 3 + 85))
+
+    start_game_screen.blit(pvp_button_text, pvp_button_text_rect)
+    start_game_screen.blit(pvc_button_text, pvc_button_text_rect)
+
+    mouse = pygame.mouse.get_pos()
+
+    if pvp_button_rect.collidepoint(mouse):
+        pygame.draw.rect(start_game_screen, cursor_color, pvp_button_rect)
+        if pygame.mouse.get_pressed()[0]:
+            # Start Player vs Player game
+            print("Starting Player vs Player game...")
+            # Add your logic to start the game here
+    else:
+        pygame.draw.rect(start_game_screen, color, pvp_button_rect)
+
+    if pvc_button_rect.collidepoint(mouse):
+        pygame.draw.rect(start_game_screen, cursor_color, pvc_button_rect)
+        if pygame.mouse.get_pressed()[0]:
+            # Start Player vs Computer game
+            print("Starting Player vs Computer game...")
+            # Add your logic to start the game here
+    else:
+        pygame.draw.rect(start_game_screen, color, pvc_button_rect)
+
+    pygame.display.flip()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+    
 main()
