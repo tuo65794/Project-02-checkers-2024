@@ -8,72 +8,87 @@ class SecondMenu:
         start_game_screen = pygame.display.set_mode([Width, Height])
         pygame.display.set_caption("Start Game Menu")
 
-        start_game_font = pygame.font.Font(None, 36)
-        start_game_text = start_game_font.render("Choose Game Mode", True, (0, 0, 0))  # Black font color
-        start_game_rect = start_game_text.get_rect(center=(Width // 2, 50))
+        message = "Select Game Mode"
+        credits1 = "Developed by Wander Cerda-Torres, Barry Lin,"
+        credits2 = "Nathan McCourt, Jonathan Stanczak, and Geonhee Yu"
+        credits_font = pygame.font.Font(None, 25)
 
-        # Set background color
-        background_color = (169, 169, 169)  # Light Gray
-        start_game_screen.fill(background_color)
+        # Credits text
+        credits_text1 = credits_font.render(credits1, True, (255, 255, 255))
+        credits_rect1 = credits_text1.get_rect(center=(Width // 2, 650))
+        credits_text2 = credits_font.render(credits2, True, (255, 255, 255))
+        credits_rect2 = credits_text2.get_rect(center=(Width // 2, 670))
 
-        start_game_screen.blit(start_game_text, start_game_rect)
+        background_image = pygame.image.load("checkers.jpg")
+        background_image = pygame.transform.scale(background_image, (Width, Height))  
 
-        # Create buttons for different game modes
-        pvp_button_rect = pygame.Rect(Width // 2 - 150, Height // 3, 300, 50)
-        pvc_button_rect = pygame.Rect(Width // 2 - 150, Height // 3 + 60, 300, 50)
-        exit_start_button_rect = pygame.Rect(Width // 2 - 150, Height // 3 + 120, 300, 50)
+        title_font = pygame.font.Font(None, 64)
+        title_text = title_font.render(message, True, (255, 255, 255))
+        title_rect = title_text.get_rect(center=(Width // 2, 38))
 
-        button_color = (128, 128, 128)  # Dark Gray
-        cursor_color = (100, 100, 100)  # Darker Gray
+        #image of the background
+        start_game_screen.blit(background_image, (0, 0))
+        # display title information and credits
+        start_game_screen.blit(title_text, title_rect)
+        start_game_screen.blit(credits_text1, credits_rect1)
+        start_game_screen.blit(credits_text2, credits_rect2)
 
-        pygame.draw.rect(start_game_screen, button_color, pvp_button_rect)
-        pygame.draw.rect(start_game_screen, button_color, pvc_button_rect)
-        pygame.draw.rect(start_game_screen, button_color, exit_start_button_rect)
+        icon_size = (45, 45)  # Adjust the size of the icon as needed
+        button_height = 50
+        spacing = 10
+        color = (128, 128, 128) # grey
+        # cursor_color = (100, 100, 100) # darker grey # CURRENTLY NOT USED
+        
+        # PvP Button
+        position = (Width // 2-150, Height // 3-25)
+        size = (300, 50)  # width, height
 
-        pvp_button_text = start_game_font.render("Player vs Player", True, (0, 0, 0), button_color)  # Black font color, transparent background
-        pvc_button_text = start_game_font.render("Player vs Computer", True, (0, 0, 0), button_color)  # Black font color, transparent background
-        exit_start_button_text = start_game_font.render("Back", True, (0, 0, 0), button_color)  # Black font color, transparent background
+        button_font = pygame.font.Font(None, 32)
+        button_text = button_font.render("Start Game VS Player", True, (255, 255, 255)) # Button text and color
+        button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3))
+    
+        # Create button on screen using position and size parameters
+        pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
+        start_game_screen.blit(button_text, button_text_rect)
+        button_rect = pygame.Rect(position, size)
 
-        pvp_button_text_rect = pvp_button_text.get_rect(center=(Width // 2, Height // 3 + 25))
-        pvc_button_text_rect = pvc_button_text.get_rect(center=(Width // 2, Height // 3 + 85))
-        exit_start_button_text_rect = exit_start_button_text.get_rect(center=(Width // 2, Height // 3 + 145))
+        # PvC Button
+        position = (Width // 2 - 150, Height // 3 + button_height + spacing)
+        size = (300, button_height)  # width, height
 
-        start_game_screen.blit(pvp_button_text, pvp_button_text_rect)
-        start_game_screen.blit(pvc_button_text, pvc_button_text_rect)
-        start_game_screen.blit(exit_start_button_text, exit_start_button_text_rect)
+        button_text = button_font.render("Start Game VS Computer", True, (255, 255, 255))  # Button text and color
+        button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3 + button_height + spacing + button_height // 2))
 
-        mouse = pygame.mouse.get_pos()
+        # Create button on screen using position and size parameters
+        pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
+        start_game_screen.blit(button_text, button_text_rect)
+        button_rect_2 = pygame.Rect(position, size)
+        
+        # Exit Second Menu Button
+        position = (Width // 2-150, Height // 3 + 135)
+        size = (300, 50)  # width, height
 
-        if pvp_button_rect.collidepoint(mouse):
-            pygame.draw.rect(start_game_screen, cursor_color, pvp_button_rect)
-            if pygame.mouse.get_pressed()[0]:
-                # Start Player vs Player game
-                print("Starting Player vs Player game...")
-        else:
-            pygame.draw.rect(start_game_screen, button_color, pvp_button_rect)
+        button_font = pygame.font.Font(None, 32)
+        button_text = button_font.render("Back to Main Menu", True, (255, 255, 255)) # Button text and color
+        button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3+160))
+        pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
+        start_game_screen.blit(button_text, button_text_rect)
 
-        if pvc_button_rect.collidepoint(mouse):
-            pygame.draw.rect(start_game_screen, cursor_color, pvc_button_rect)
-            if pygame.mouse.get_pressed()[0]:
-                # Start Player vs Computer game
-                print("Starting Player vs Computer game...")
-        else:
-            pygame.draw.rect(start_game_screen, button_color, pvc_button_rect)
-
-        if exit_start_button_rect.collidepoint(mouse):
-            pygame.draw.rect(start_game_screen, cursor_color, exit_start_button_rect)
-            if pygame.mouse.get_pressed()[0]:
-                return  # Exit the start game menu
-        else:
-            pygame.draw.rect(start_game_screen, button_color, exit_start_button_rect)
+        pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
+        start_game_screen.blit(button_text, button_text_rect)
+        button_rect_3 = pygame.Rect(position, size)
 
         pygame.display.flip()
-
+        mouse = pygame.mouse.get_pos()
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if exit_start_button_rect.collidepoint(event.pos):  # if exit button is clicked
+                    if button_rect_3.collidepoint(event.pos):  # if exit button is clicked
                         return  # exit start game  and return to menu
+                    # elif button_rect.collidepoint(event.pos):  # if start vs player game button is clicked
+                        # start game vs player
+                    # elif button_rect_2.collidepoint(event.pos):  # if start game vs computer button is clicked
+                        # start game vs computer
