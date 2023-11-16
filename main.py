@@ -145,6 +145,8 @@ def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 buttons = menu_buttons() # create array for buttons # NEED TO ADD PVC BUTTON OR MAKE PVP BUTTON COMBINED INTO BOTH
+                if buttons[0].collidepoint(event.pos):   # If Start Game button is clicked, show the start game menu
+                    start_game_menu()
                 if buttons[2].collidepoint(event.pos): # if mouse is clicked on tutorial button
                     tutorial()
                 # elif buttons[0].collidepoint(event.pos): # if mouse is clicked on PvP button
@@ -555,21 +557,26 @@ def start_game_menu():
     # Create buttons for different game modes
     pvp_button_rect = pygame.Rect(Width // 2 - 150, Height // 3, 300, 50)
     pvc_button_rect = pygame.Rect(Width // 2 - 150, Height // 3 + 60, 300, 50)
+    exit_start_button_rect = pygame.Rect(Width // 2 - 150, Height // 3 + 120, 300, 50)
 
     color = (128, 128, 128)  # grey
     cursor_color = (100, 100, 100)  # darker grey
 
     pygame.draw.rect(start_game_screen, color, pvp_button_rect)
     pygame.draw.rect(start_game_screen, color, pvc_button_rect)
+    pygame.draw.rect(start_game_screen, color, exit_start_button_rect)
 
     pvp_button_text = start_game_font.render("Player vs Player", True, (255, 255, 255))
     pvc_button_text = start_game_font.render("Player vs Computer", True, (255, 255, 255))
+    exit_start_button_text = start_game_font.render("Exit Start Menu", True, (255, 255, 255))
 
     pvp_button_text_rect = pvp_button_text.get_rect(center=(Width // 2, Height // 3 + 25))
     pvc_button_text_rect = pvc_button_text.get_rect(center=(Width // 2, Height // 3 + 85))
+    exit_start_button_text_rect = exit_start_button_text.get_rect(center=(Width // 2, Height // 3 + 145))
 
     start_game_screen.blit(pvp_button_text, pvp_button_text_rect)
     start_game_screen.blit(pvc_button_text, pvc_button_text_rect)
+    start_game_screen.blit(exit_start_button_text, exit_start_button_text_rect)
 
     mouse = pygame.mouse.get_pos()
 
@@ -590,6 +597,14 @@ def start_game_menu():
             # Add your logic to start the game here
     else:
         pygame.draw.rect(start_game_screen, color, pvc_button_rect)
+
+    if exit_start_button_rect.collidepoint(mouse):
+        pygame.draw.rect(start_game_screen, cursor_color, exit_start_button_rect)
+        if pygame.mouse.get_pressed()[0]:
+            return  # Exit the start game menu
+
+    else:
+        pygame.draw.rect(start_game_screen, color, exit_start_button_rect)
 
     pygame.display.flip()
 
