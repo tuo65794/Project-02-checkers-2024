@@ -3,6 +3,7 @@
 #main will call the other files and classes to run the game
 
 import pygame
+from SecondMenu import SecondMenu
 import time
 import string
 
@@ -16,7 +17,7 @@ pygame.mixer.init() # initialize pygame mixer for music
 Width, Height = 1000, 700 # updated size
 screen = pygame.display.set_mode([Width, Height])
 
-#title of the gaame for screen 
+#title of the game for screen 
 pygame.display.set_caption("Checkers+")
 
 # background music
@@ -145,6 +146,8 @@ def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 buttons = menu_buttons() # create array for buttons # NEED TO ADD PVC BUTTON OR MAKE PVP BUTTON COMBINED INTO BOTH
+                if buttons[0].collidepoint(event.pos): # If Start Game button is clicked, show the second menu
+                   SecondMenu.start_game_menu() 
                 if buttons[2].collidepoint(event.pos): # if mouse is clicked on tutorial button
                     tutorial()
                 # elif buttons[0].collidepoint(event.pos): # if mouse is clicked on PvP button
@@ -542,5 +545,5 @@ def show_leaderboard():
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
 
-
+    
 main()
