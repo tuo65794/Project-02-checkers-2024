@@ -17,7 +17,7 @@ screen = pygame.display.set_mode([Width, Height])
 pygame.display.set_caption("Checkers+")
 
 # background music
-tracks = ["music/Track1.mp3", "music/Track2.mp3"] # can add more or delete tracks if we do not like them
+tracks = ["music/Track1.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3"] # can add more or delete tracks if we do not like them
 current_track = 0
 SONG_END = pygame.USEREVENT + 1
 def music_loop():
@@ -29,6 +29,16 @@ def music_loop():
 
 music_loop()
 pygame.mixer.music.set_endevent(SONG_END) # create event for song ending/looping
+music_playing = True # boolean to check if music is playing or not
+
+# for board customization, use class when creating game
+class Board:
+    def __init__(self, color1, color2, boardColor):
+        self.color1 = color1
+        self.color2 = color2
+        self.boardColor = boardColor
+
+board = Board("red", "black", "white")
 
 # title for display (can remove credits if we do not want them)
 game_title = "Checkers+"
@@ -71,8 +81,8 @@ def main():
                     tutorial()
                 # elif buttons[0].collidepoint(event.pos): # if mouse is clicked on PvP button
                     # code to start PvP game
-                # elif buttons[1].collidepoint(event.pos): # if mouse is clicked on settings button
-                    # code to enter settings menu
+                elif buttons[1].collidepoint(event.pos): # if mouse is clicked on settings button
+                    settings()
                 # elif buttons[3].collidepoint(event.pos): # if mouse is clicked on leaderboard button (not yet implemented)
                     # code to enter leaderboard menu
                 # Check if the current song has finished, loop to next song
@@ -98,18 +108,30 @@ def main():
     pygame.quit()
 
 def menu_buttons(): # function to create menu buttons
-    # PvP Button
+
+    # Used for buttons w/ images
+    icon_size = (45, 45)  # Adjust the size of the icon as needed
+    button_height = 50
+    spacing = 10
+
+    # Start Game Button
+    startgame_icon = pygame.image.load('pics/start_icon.png')
+    # Draw the icon next to the text with the specified size
+    startgame_icon_resized = pygame.transform.scale(startgame_icon, icon_size)
+    startgame_icon_rect = startgame_icon_resized.get_rect(topleft=(Width // 2 - 150 + 10, Height // 3 + (button_height - icon_size[1] - 50) // 2))
+
     color = (128, 128, 128) # grey
     cursor_color = (100, 100, 100) # darker grey
     position = (Width // 2-150, Height // 3-25)
     size = (300, 50)  # width, height
         
     button_font = pygame.font.Font(None, 32)
-    button_text = button_font.render("Start Game Against Player", True, (255, 255, 255)) # Button text and color
+    button_text = button_font.render("Start Game", True, (255, 255, 255)) # Button text and color
     button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3))
     
     # Create button on screen using position and size parameters
     pygame.draw.rect(screen, color, pygame.Rect(position, size))
+    screen.blit(startgame_icon_resized, startgame_icon_rect.topleft)
     screen.blit(button_text, button_text_rect)
     
     # Used to indicate if cursor is hovering over button. If so, button will be darker
@@ -121,12 +143,10 @@ def menu_buttons(): # function to create menu buttons
         pygame.draw.rect(screen, color, button_rect) # stay original color if cursor not hovering over
 
     screen.blit(button_text, button_text_rect)
-    
+    screen.blit(startgame_icon_resized, startgame_icon_rect.topleft)  # Draw the icon after drawing the button
+
     # Settings Button    
     settings_icon = pygame.image.load('pics/settings_icon.png')
-
-    button_height = 50
-    spacing = 10
 
     position = (Width // 2 - 150, Height // 3 + button_height + spacing)
     size = (300, button_height)  # width, height
@@ -134,15 +154,13 @@ def menu_buttons(): # function to create menu buttons
     button_text = button_font.render("Settings", True, (255, 255, 255))  # Button text and color
     button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3 + button_height + spacing + button_height // 2))
 
-    # Set the desired size for the icon
-    icon_size = (45, 45)  # Adjust the size of the icon as needed
-
     # Draw the icon next to the text with the specified size
     settings_icon_resized = pygame.transform.scale(settings_icon, icon_size)
     settings_icon_rect = settings_icon_resized.get_rect(topleft=(Width // 2 - 150 + 10, Height // 3 + button_height + spacing + (button_height - icon_size[1]) // 2))
 
     # Create button on screen using position and size parameters
     pygame.draw.rect(screen, color, pygame.Rect(position, size))
+    screen.blit(settings_icon_resized, settings_icon_rect.topleft)  # Draw the icon after drawing the button
     screen.blit(button_text, button_text_rect)
 
     # Used to indicate if the cursor is hovering over the button. If so, the button will be darker
@@ -277,5 +295,85 @@ def tutorial(): # tutorial prompt (subject to change text)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
-  
+                
+def settings(): # settings menu
+
+    # Used for buttons w/ images
+    icon_size = (45, 45)  # Adjust the size of the icon as needed
+    button_height = 50
+    spacing = 10
+
+    settings_screen = pygame.display.set_mode([Width, Height])
+    screen.blit(background_image, (0, 0))
+    settings_screen.blit(title_text, title_rect)
+    settings_screen.blit(message_text, message_rect)
+    settings_screen.blit(credits_text1, credits_rect1)
+    settings_screen.blit(credits_text2, credits_rect2)
+
+    # Customize Board Button
+    colorwheel_icon = pygame.image.load('pics/colorwheel_icon.png')
+    # Draw the icon next to the text with the specified size
+    colorwheel_icon_resized = pygame.transform.scale(colorwheel_icon, icon_size)
+    colorwheel_icon_rect = colorwheel_icon_resized.get_rect(topleft=(Width // 2 - 155 + 10, Height // 3 + (button_height - icon_size[1] - 50) // 2))
+
+    color = (128, 128, 128) # grey
+    cursor_color = (100, 100, 100) # darker grey
+    position = (Width // 2-150, Height // 3-25)
+    size = (300, 50)  # width, height
+        
+    button_font = pygame.font.Font(None, 32)
+    button_text = button_font.render("Customize Board", True, (255, 255, 255)) # Button text and color
+    button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3))
+    
+    # Create button on screen using position and size parameters
+    pygame.draw.rect(settings_screen, color, pygame.Rect(position, size))
+    settings_screen.blit(colorwheel_icon_resized, colorwheel_icon_rect.topleft)
+    settings_screen.blit(button_text, button_text_rect)
+    
+    button_rect_4 = pygame.Rect(position, size)
+
+    # Music Button
+    music_icon = pygame.image.load('pics/music_icon.png')
+    position = (Width // 2 - 150, Height // 3 + button_height + spacing)
+    size = (300, button_height)  # width, height
+
+    button_text = button_font.render("Music (On/Off)", True, (255, 255, 255))  # Button text and color
+    button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3 + button_height + spacing + button_height // 2))
+
+    # Draw the icon next to the text with the specified size
+    music_icon_resized = pygame.transform.scale(music_icon, icon_size)
+    music_icon_rect = music_icon_resized.get_rect(topleft=(Width // 2 - 150 + 10, Height // 3 + button_height + spacing + (button_height - icon_size[1]) // 2))
+
+    # Create button on screen using position and size parameters
+    pygame.draw.rect(settings_screen, color, pygame.Rect(position, size))
+    settings_screen.blit(music_icon_resized, music_icon_rect.topleft)  # Draw the icon after drawing the button
+    settings_screen.blit(button_text, button_text_rect)
+
+    button_rect_5 = pygame.Rect(position, size)
+
+    # Exit button to return back to menu
+    exit_button_font = pygame.font.Font(None, 32)
+    exit_button_text = exit_button_font.render("Exit Settings", True, (255, 255, 255))
+    exit_button_rect = exit_button_text.get_rect(center=(Width // 2, Height - 100))
+    pygame.draw.rect(settings_screen, (128, 128, 128), exit_button_rect.inflate(20, 10))
+    settings_screen.blit(exit_button_text, exit_button_rect)
+
+    pygame.display.flip()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if exit_button_rect.collidepoint(event.pos):  # if exit settings button is clicked
+                    return  # exit settings and return to menu
+                if button_rect_5.collidepoint(event.pos):  # if music button is clicked
+                    if pygame.mixer.music.get_busy():
+                        pygame.mixer.music.stop()  # Stop the music
+                        music_playing = False
+                    else:
+                        music_loop()  # Start the music from next song in tracklist
+                        music_playing = True
+
 main()
