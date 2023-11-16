@@ -544,14 +544,20 @@ def show_leaderboard():
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
 
+######################### Start Game Menu Implementaion   ############################################################
 
 def start_game_menu():
     start_game_screen = pygame.display.set_mode([Width, Height])
     pygame.display.set_caption("Start Game Menu")
 
     start_game_font = pygame.font.Font(None, 36)
-    start_game_text = start_game_font.render("Choose Game Mode", True, (255, 255, 255))
+    start_game_text = start_game_font.render("Choose Game Mode", True, (0, 0, 0))  # Black font color
     start_game_rect = start_game_text.get_rect(center=(Width // 2, 50))
+
+    # Set background color
+    background_color = (169, 169, 169)  # Light Gray
+    start_game_screen.fill(background_color)
+
     start_game_screen.blit(start_game_text, start_game_rect)
 
     # Create buttons for different game modes
@@ -559,16 +565,16 @@ def start_game_menu():
     pvc_button_rect = pygame.Rect(Width // 2 - 150, Height // 3 + 60, 300, 50)
     exit_start_button_rect = pygame.Rect(Width // 2 - 150, Height // 3 + 120, 300, 50)
 
-    color = (128, 128, 128)  # grey
-    cursor_color = (100, 100, 100)  # darker grey
+    button_color = (128, 128, 128)  # Dark Gray
+    cursor_color = (100, 100, 100)  # Darker Gray
 
-    pygame.draw.rect(start_game_screen, color, pvp_button_rect)
-    pygame.draw.rect(start_game_screen, color, pvc_button_rect)
-    pygame.draw.rect(start_game_screen, color, exit_start_button_rect)
+    pygame.draw.rect(start_game_screen, button_color, pvp_button_rect)
+    pygame.draw.rect(start_game_screen, button_color, pvc_button_rect)
+    pygame.draw.rect(start_game_screen, button_color, exit_start_button_rect)
 
-    pvp_button_text = start_game_font.render("Player vs Player", True, (255, 255, 255))
-    pvc_button_text = start_game_font.render("Player vs Computer", True, (255, 255, 255))
-    exit_start_button_text = start_game_font.render("Exit Start Menu", True, (255, 255, 255))
+    pvp_button_text = start_game_font.render("Player vs Player", True, (0, 0, 0), button_color)  # Black font color, transparent background
+    pvc_button_text = start_game_font.render("Player vs Computer", True, (0, 0, 0), button_color)  # Black font color, transparent background
+    exit_start_button_text = start_game_font.render("Back", True, (0, 0, 0), button_color)  # Black font color, transparent background
 
     pvp_button_text_rect = pvp_button_text.get_rect(center=(Width // 2, Height // 3 + 25))
     pvc_button_text_rect = pvc_button_text.get_rect(center=(Width // 2, Height // 3 + 85))
@@ -585,26 +591,23 @@ def start_game_menu():
         if pygame.mouse.get_pressed()[0]:
             # Start Player vs Player game
             print("Starting Player vs Player game...")
-            # Add your logic to start the game here
     else:
-        pygame.draw.rect(start_game_screen, color, pvp_button_rect)
+        pygame.draw.rect(start_game_screen, button_color, pvp_button_rect)
 
     if pvc_button_rect.collidepoint(mouse):
         pygame.draw.rect(start_game_screen, cursor_color, pvc_button_rect)
         if pygame.mouse.get_pressed()[0]:
             # Start Player vs Computer game
             print("Starting Player vs Computer game...")
-            # Add your logic to start the game here
     else:
-        pygame.draw.rect(start_game_screen, color, pvc_button_rect)
+        pygame.draw.rect(start_game_screen, button_color, pvc_button_rect)
 
     if exit_start_button_rect.collidepoint(mouse):
         pygame.draw.rect(start_game_screen, cursor_color, exit_start_button_rect)
         if pygame.mouse.get_pressed()[0]:
             return  # Exit the start game menu
-
     else:
-        pygame.draw.rect(start_game_screen, color, exit_start_button_rect)
+        pygame.draw.rect(start_game_screen, button_color, exit_start_button_rect)
 
     pygame.display.flip()
 
@@ -613,5 +616,11 @@ def start_game_menu():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if exit_start_button_rect.collidepoint(event.pos):  # if exit button is clicked
+                    return  # exit start game  and return to menu
+            
+####################### END Start Game Menu Implementaion   ############################################################
+
     
 main()
