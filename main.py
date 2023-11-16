@@ -205,8 +205,43 @@ def menu_buttons(): # function to create menu buttons
 
     screen.blit(tutorial_icon_resized, tutorial_icon_rect.topleft)  # Draw the icon after drawing the button
     screen.blit(button_text, button_text_rect)
+    
+    # Leaderboard button
+    leaderboard_icon = pygame.image.load('pics/leaderboard_icon.png')
 
-    return button_rect, button_rect_2, button_rect_3
+    color = (128, 128, 128) # grey
+    cursor_color = (100, 100, 100) # darker grey
+    position = (Width // 2 - 150, Height // 3 + 200)  # Adjust the vertical position as needed
+    size = (300, 50)  # width, height
+
+    button_font = pygame.font.Font(None, 32)
+    button_text = button_font.render("View Rankings", True, (255, 255, 255)) # Button text and color
+    button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3 + 225))  # Adjust the vertical position as needed
+    pygame.draw.rect(screen, color, pygame.Rect(position, size))
+    screen.blit(button_text, button_text_rect)
+
+    # Draw the icon next to the text with the specified size
+    leaderboard_icon_resized = pygame.transform.scale(leaderboard_icon, icon_size)
+    leaderboard_icon_rect = leaderboard_icon_resized.get_rect(
+        topleft=(Width // 2 - 150 + 10, Height // 3 + 200 + (button_height - icon_size[1]) // 2))
+
+    pygame.draw.rect(screen, color, pygame.Rect(position, size))
+    screen.blit(button_text, button_text_rect)
+    
+    # Used to indicate if cursor is hovering over button. If so, button will be darker
+    mouse = pygame.mouse.get_pos()
+    button_rect_4 = pygame.Rect(position, size)
+    if button_rect_4.collidepoint(mouse):
+        pygame.draw.rect(screen, cursor_color, button_rect_4)  # Change color when cursor hovered over
+        if pygame.mouse.get_pressed()[0]:  # Check if left mouse button is clicked
+            show_leaderboard()  # Call the function to display the leaderboard
+    else:
+        pygame.draw.rect(screen, color, button_rect_4) # stay original color if cursor not hovering over
+
+    screen.blit(leaderboard_icon_resized, leaderboard_icon_rect.topleft)  # Draw the icon after drawing the button
+    screen.blit(button_text, button_text_rect)
+
+    return button_rect, button_rect_2, button_rect_3, button_rect_4
 
 def tutorial(): # tutorial prompt (subject to change text)
     # load image used in tutorial
@@ -375,5 +410,63 @@ def settings(): # settings menu
                     else:
                         music_loop()  # Start the music from next song in tracklist
                         music_playing = True
+
+def show_leaderboard():
+    pygame.init()
+
+    # Dummy data for the leaderboard (replace this with your actual data)
+    leaderboard_data = [
+        ("Player1", 150),
+        ("Player2", 120),
+        ("Player3", 100),
+        ("Player4", 90),
+        ("Player5", 80),
+        ("Player6", 70),
+        ("Player7", 60),
+        ("Player8", 50),
+        ("Player9", 40),
+        ("Player10", 30)
+    ]
+
+    # Set up the new window for the leaderboard
+    leaderboard_screen = pygame.display.set_mode((1000, 700))
+    pygame.display.set_caption("Leaderboard")
+
+    # Leaderboard header
+    header_font = pygame.font.Font(None, 36)
+    header_text = header_font.render("Leaderboard", True, (255, 255, 255))
+    header_rect = header_text.get_rect(center=(500, 40))
+    leaderboard_screen.blit(header_text, header_rect)
+
+    # Display player scores
+    score_font = pygame.font.Font(None, 28)
+    vertical_position = 80  # Adjust the starting vertical position as needed
+
+    for rank, (player_name, score) in enumerate(leaderboard_data, start=1):
+        player_text = score_font.render(f"{rank}. {player_name}: {score}", True, (255, 255, 255))
+        player_rect = player_text.get_rect(center=(500, vertical_position))
+        leaderboard_screen.blit(player_text, player_rect)
+        vertical_position += 30  # Adjust the vertical spacing as needed
+
+    pygame.display.flip()
+
+    # Exit button to return back to menu
+    exit_button_font = pygame.font.Font(None, 32)
+    exit_button_text = exit_button_font.render("Return to Main Menu", True, (255, 255, 255))
+    exit_button_rect = exit_button_text.get_rect(center=(Width // 2, Height - 50))
+    pygame.draw.rect(leaderboard_screen, (64, 64, 64), exit_button_rect.inflate(20, 10))
+    leaderboard_screen.blit(exit_button_text, exit_button_rect)
+
+    pygame.display.flip()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
+                    return  # exit tutorial and return to menu
+
 
 main()
