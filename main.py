@@ -103,16 +103,20 @@ def get_player_name():
                 quit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    if player_name.isalnum() and len(player_name) <= 20:
+                    #if player_name.isalnum() and len(player_name) <= 20:
+                    if (event.unicode.isalnum() or event.unicode.isspace()) and len(player_name) < 20:
+
                         input_active = False  # Stop taking input when Enter is pressed and the name is valid
                     else:
                         error_msg = "Invalid name. Please use English letters or numbers, and keep it under 20 characters."
                 elif event.key == pygame.K_BACKSPACE:
                     player_name = player_name[:-1]  # Remove the last character when Backspace is pressed
                 else:
-                    # Check if the typed character is an English letter or a number
-                    if event.unicode.isalnum() and len(player_name) < 20:
+                    # Check if the typed character is an English letter, a number, or a space
+                    if (event.unicode.isalnum() or event.unicode.isspace()) and len(player_name) < 20:
                         player_name += event.unicode  # Append the typed character to the player_name
+
+
 
         screen.blit(background_image, (0, 0))
         draw_text_input(player_name, error_msg)
@@ -122,16 +126,16 @@ def get_player_name():
 
 
 
-
-player_name = get_player_name()
-
-
-# Display the player's name (for testing purposes)
-print("Player's Name:", player_name)
-
-
 # run until the user closes application
 def main():
+
+    # Get the player's name
+    player_name = get_player_name()
+
+    # Display the player's name at the right bottom corner
+    player_name_font = pygame.font.Font(None, 24)
+    player_name_text = player_name_font.render(player_name, True, (255, 255, 255))  # White text color
+    player_name_rect = player_name_text.get_rect(bottomright=(Width - 10, Height - 10))  # Adjust position as needed
 
     running = True
     while running:
@@ -164,6 +168,12 @@ def main():
         
         # call PvP button function from menu.py
         menu_buttons()
+
+
+        # Display player name in the right bottom corner
+        pygame.draw.rect(screen, (0, 0, 255), player_name_rect)  # Blue box
+        screen.blit(player_name_text, player_name_rect)
+
 
         # flip the display
         pygame.display.flip()
