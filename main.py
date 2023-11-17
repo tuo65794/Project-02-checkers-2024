@@ -4,6 +4,8 @@
 
 import pygame
 from SecondMenu import SecondMenu
+from Main_Board import MAIN_Board
+from constants import BLACK, WHITE
 import time
 import string
 
@@ -132,6 +134,8 @@ def main():
 
     # Get the player's name
     player_name = get_player_name()
+    
+    second_menu_instance = SecondMenu()
 
     # Display the player's name at the right bottom corner
     player_name_font = pygame.font.Font(None, 24)
@@ -147,11 +151,9 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 buttons = menu_buttons() # create array for buttons # NEED TO ADD PVC BUTTON OR MAKE PVP BUTTON COMBINED INTO BOTH
                 if buttons[0].collidepoint(event.pos): # If Start Game button is clicked, show the second menu
-                   SecondMenu.start_game_menu() 
+                   second_menu_instance.start_game_menu()
                 if buttons[2].collidepoint(event.pos): # if mouse is clicked on tutorial button
                     tutorial()
-                # elif buttons[0].collidepoint(event.pos): # if mouse is clicked on PvP button
-                    # code to start PvP game
                 elif buttons[1].collidepoint(event.pos): # if mouse is clicked on settings button
                     settings()
                 # elif buttons[3].collidepoint(event.pos): # if mouse is clicked on leaderboard button (not yet implemented)
