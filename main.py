@@ -6,6 +6,7 @@ import pygame
 from SecondMenu import SecondMenu
 from Main_Board import MAIN_Board
 from constants import BLACK, WHITE
+from pieces import pieces
 import time
 import string
 
