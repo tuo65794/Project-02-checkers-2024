@@ -186,3 +186,4 @@ def tutorial(): # tutorial prompt (subject to change text)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
+                
