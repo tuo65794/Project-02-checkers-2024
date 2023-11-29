@@ -1,11 +1,16 @@
 import pygame
 from Main_Board import MAIN_Board
-from constants import BLACK, WHITE,RED,GREY,Brown
+from constants import RED, GREY
 from pieces import Piece
 
-Width, Height = 1000,1000
+Width, Height = 1200,1000 
 
 class SecondMenu:
+
+    # default colors
+    color1 = RED
+    color2 = GREY
+
     def start_game_menu(self):
         pygame.init()
 
@@ -19,9 +24,9 @@ class SecondMenu:
 
         # Credits text
         credits_text1 = credits_font.render(credits1, True, (255, 255, 255))
-        credits_rect1 = credits_text1.get_rect(center=(Width // 2, 650))
+        credits_rect1 = credits_text1.get_rect(center=(Width // 2, 940))
         credits_text2 = credits_font.render(credits2, True, (255, 255, 255))
-        credits_rect2 = credits_text2.get_rect(center=(Width // 2, 670))
+        credits_rect2 = credits_text2.get_rect(center=(Width // 2, 960))
 
         background_image = pygame.image.load("checkers.jpg")
         background_image = pygame.transform.scale(background_image, (Width, Height))
@@ -100,13 +105,12 @@ class SecondMenu:
 
     def start_game_vs_player(self, screen):
         #main_Board changes piece color
-        main_board = MAIN_Board(RED, GREY, (0, 0, 0))
+        main_board = MAIN_Board(self.color2, self.color1, (0, 0, 0))
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-
             screen.fill((0, 0, 0))
             
             # Draw the board and pieces
@@ -119,7 +123,7 @@ class SecondMenu:
 
     def start_game_vs_computer(self, screen):
         #main_Board changes piece color
-        main_board = MAIN_Board(RED, GREY, (0, 0, 0))
+        main_board = MAIN_Board(self.color1, self.color2, (0, 0, 0))
         running = True
         while running:
             for event in pygame.event.get():
