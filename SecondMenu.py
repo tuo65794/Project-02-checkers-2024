@@ -1,5 +1,10 @@
 import pygame
 from Main_Board import MAIN_Board
+
+
+
+
+
 from Player import Player
 from Player import user_scores
 from constants import BLACK, WHITE
@@ -13,6 +18,12 @@ player1_name = Player("Player 1")
 player2_name = Player("Player 2")
 
 class SecondMenu:
+    
+    
+    
+    
+    
+    
 
     def start_game_menu(self):
         global player1_name, player2_name
