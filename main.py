@@ -11,7 +11,7 @@ pygame.init()
 pygame.mixer.init() # initialize pygame mixer for music
 
 # set up the drawing window
-Width, Height = 1200, 700 # updated size
+Width, Height = 1000, 700 # updated size
 screen = pygame.display.set_mode([Width, Height])
 #title of the game for screen 
 pygame.display.set_caption("Checkers+")
