@@ -1,13 +1,8 @@
 import pygame
 from Main_Board import MAIN_Board
-
-
-
-
-
 from Player import Player
 from Player import user_scores
-from constants import BLACK, WHITE
+from constants import RED, GREY
 
 Width, Height = 1000, 700
 background_image = pygame.image.load("checkers.jpg")
@@ -19,12 +14,10 @@ player2_name = Player("Player 2")
 
 class SecondMenu:
     
+    #default colors
+    color1 = RED
+    color2 = GREY
     
-    
-    
-    
-    
-
     def start_game_menu(self):
         global player1_name, player2_name
         pygame.init()
@@ -125,7 +118,7 @@ class SecondMenu:
                         
     
     def start_game_vs_player(self, screen):
-        main_board = MAIN_Board(WHITE, BLACK, (0, 0, 0))
+        main_board = MAIN_Board(self.color1, self.color2, (0, 0, 0))
         running = True
         while running:
             for event in pygame.event.get():
@@ -142,7 +135,7 @@ class SecondMenu:
         pygame.quit()
 
     def start_game_vs_computer(self, screen):
-        main_board = MAIN_Board(WHITE, BLACK, (0, 0, 0))
+        main_board = MAIN_Board(self.color1, self.color2, (0, 0, 0))
         running = True
         while running:
             for event in pygame.event.get():
