@@ -1,11 +1,21 @@
 import pygame
 from Main_Board import MAIN_Board
+from Player import Player
 from constants import BLACK, WHITE
 
 Width, Height = 1000, 700
+background_image = pygame.image.load("checkers.jpg")
+background_image = pygame.transform.scale(background_image, (Width, Height))
+screen = pygame.display.set_mode([Width, Height])
+
+player1_name = Player("Player 1")
+player2_name = Player("Player 2")
+user_scores = {}
 
 class SecondMenu:
+
     def start_game_menu(self):
+        global player1_name, player2_name
         pygame.init()
 
         start_game_screen = pygame.display.set_mode([Width, Height])
@@ -66,6 +76,7 @@ class SecondMenu:
         pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
         start_game_screen.blit(button_text, button_text_rect)
         button_rect_2 = pygame.Rect(position, size)
+        
         # Exit Second Menu Button
         position = (Width // 2-150, Height // 3 + 135)
         size = (300, 50)  # width, height
@@ -91,12 +102,17 @@ class SecondMenu:
                     if button_rect_3.collidepoint(event.pos):  # if exit button is clicked
                         return  # exit start game  and return to menu
                     elif button_rect.collidepoint(event.pos):  # Start Game VS Player button clicked
+                        player1_name.get_player_name()
+                        player1_name.add_user(player1_name.username)
+                        player2_name.get_player_name()
+                        player2_name.add_user(player2_name.username)
                         self.start_game_vs_player(start_game_screen)
                     elif button_rect_2.collidepoint(event.pos):  # Start Game VS Computer button clicked
+                        player1_name.get_player_name()
+                        player1_name.add_user(player1_name.username)
                         self.start_game_vs_computer(start_game_screen)
                         
     
-
     def start_game_vs_player(self, screen):
         main_board = MAIN_Board(WHITE, BLACK, (0, 0, 0))
         running = True
@@ -130,3 +146,13 @@ class SecondMenu:
             pygame.display.flip()
 
         pygame.quit()
+    
+ 
+    # Display the player's name at the right bottom corner
+    #player_name_font = pygame.font.Font(None, 24)
+    #player_name_text = player_name_font.render(player1_name, True, (255, 255, 255))  # White text color
+    #player_name_rect = player_name_text.get_rect(bottomright=(Width - 10, Height - 10))  # Adjust position as needed
+    
+    # Display player name in the right bottom corner
+    #pygame.draw.rect(screen, (0, 0, 255), player_name_rect)  # Blue box
+    #screen.blit(player_name_text, player_name_rect)

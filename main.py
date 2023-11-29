@@ -73,75 +73,10 @@ credits_rect1 = credits_text1.get_rect(center=(Width // 2, 650))
 credits_text2 = credits_font.render(credits2, True, (255, 255, 255))
 credits_rect2 = credits_text2.get_rect(center=(Width // 2, 670))
 
-# Function to draw the text input box on the screen
-def draw_text_input(player_name, error_msg="name error"):
-    font = pygame.font.Font(None, 32)
-
-    # Render the background box
-    pygame.draw.rect(screen, (128, 128, 128), (Width // 2 - 225, Height // 2 - 25, 450, 50))  # Adjust size and position as needed
-
-    # Render the text on the background box
-    input_text = font.render("Enter Your Name: " + player_name, True, (255, 255, 255))
-    input_rect = input_text.get_rect(center=(Width // 2, Height // 2))
-    screen.blit(input_text, input_rect)
-
-    # Render the error message below the input box
-    if error_msg:
-        error_font = pygame.font.Font(None, 24)
-        error_text = error_font.render(error_msg, True, (255, 0, 0))  # Red color for error message
-        error_rect = error_text.get_rect(center=(Width // 2, Height // 2 + 30))  # Adjust position as needed
-        screen.blit(error_text, error_rect)
-
-
-# Function to ask player's name
-def get_player_name():
-    input_active = True
-    player_name = ""
-    error_msg = ""
-
-    while input_active:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    #if player_name.isalnum() and len(player_name) <= 20:
-                    if (event.unicode.isalnum() or event.unicode.isspace()) and len(player_name) < 20:
-
-                        input_active = False  # Stop taking input when Enter is pressed and the name is valid
-                    else:
-                        error_msg = "Invalid name. Please use English letters or numbers, and keep it under 20 characters."
-                elif event.key == pygame.K_BACKSPACE:
-                    player_name = player_name[:-1]  # Remove the last character when Backspace is pressed
-                else:
-                    # Check if the typed character is an English letter, a number, or a space
-                    if (event.unicode.isalnum() or event.unicode.isspace()) and len(player_name) < 20:
-                        player_name += event.unicode  # Append the typed character to the player_name
-
-
-
-        screen.blit(background_image, (0, 0))
-        draw_text_input(player_name, error_msg)
-        pygame.display.flip()
-
-    return player_name
-
-
-
 # run until the user closes application
 def main():
-
-    # Get the player's name
-    player_name = get_player_name()
-    
     second_menu_instance = SecondMenu()
-
-    # Display the player's name at the right bottom corner
-    player_name_font = pygame.font.Font(None, 24)
-    player_name_text = player_name_font.render(player_name, True, (255, 255, 255))  # White text color
-    player_name_rect = player_name_text.get_rect(bottomright=(Width - 10, Height - 10))  # Adjust position as needed
-
+    
     running = True
     while running:
         # did the user click the window close button?
@@ -173,12 +108,6 @@ def main():
         
         # call PvP button function from menu.py
         menu_buttons()
-
-
-        # Display player name in the right bottom corner
-        pygame.draw.rect(screen, (0, 0, 255), player_name_rect)  # Blue box
-        screen.blit(player_name_text, player_name_rect)
-
 
         # flip the display
         pygame.display.flip()
