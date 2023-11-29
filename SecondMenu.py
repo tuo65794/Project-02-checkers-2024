@@ -1,8 +1,9 @@
 import pygame
 from Main_Board import MAIN_Board
-from constants import BLACK, WHITE
+from constants import BLACK, WHITE,RED,GREY,Brown
+from pieces import Piece
 
-Width, Height = 1000, 700
+Width, Height = 1000,1000
 
 class SecondMenu:
     def start_game_menu(self):
@@ -98,34 +99,38 @@ class SecondMenu:
     
 
     def start_game_vs_player(self, screen):
-        main_board = MAIN_Board(WHITE, BLACK, (0, 0, 0))
+        #main_Board changes piece color
+        main_board = MAIN_Board(RED, GREY, (0, 0, 0))
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-            screen.fill((0, 0, 0))  # Fill the screen with a background color (black in this case)
-
-            # Draw the game board
-            main_board.draw_squares(screen)
+            screen.fill((0, 0, 0))
+            
+            # Draw the board and pieces
+            main_board.draw_board(screen)
+            main_board.draw_pieces(screen)
 
             pygame.display.flip()
 
         pygame.quit()
 
     def start_game_vs_computer(self, screen):
-        main_board = MAIN_Board(WHITE, BLACK, (0, 0, 0))
+        #main_Board changes piece color
+        main_board = MAIN_Board(RED, GREY, (0, 0, 0))
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-            screen.fill((0, 0, 0))  # Fill the screen with a background color (black in this case)
-
-            # Draw the game board
-            main_board.draw_squares(screen)
+            screen.fill((0, 0, 0))
+            
+            # Draw the board and pieces
+            main_board.draw_board(screen)
+            main_board.draw_pieces(screen)
 
             pygame.display.flip()
 
