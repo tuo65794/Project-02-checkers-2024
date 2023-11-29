@@ -11,7 +11,7 @@ pygame.init()
 pygame.mixer.init() # initialize pygame mixer for music
 
 # set up the drawing window
-Width, Height = 1200, 1000 # updated size
+Width, Height = 1000, 700 # updated size
 screen = pygame.display.set_mode([Width, Height])
 #title of the game for screen 
 pygame.display.set_caption("Checkers+")
@@ -373,31 +373,31 @@ def tutorial(): # tutorial prompt (subject to change text)
 
     # Second paragraph
     tutorial_text = tutorial_font.render("To play Checkers+, standard checkers rules are applied...with a twist!", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 465))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 365))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("In standard checkers, players can only move a piece diagonally until that piece has reached the last row", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 490))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 390))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("of the opposing side. In our game, you will be allowed to move a piece backwards every 45 seconds, even", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 515))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 415))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("if that piece has not yet reached the last row. You also only have 15 seconds to make a move, so think fast!", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 540))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 440))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("Your 45 second timer will not reset until you make a backward move. Don't let them go to waste!", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 565))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 465))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("When the game starts, you will be asked to enter the names of the players (or player, if playing against the computer).", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 590))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 490))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("Doing this will allow your name(s) and score to be updated on the leaderboard.", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 615))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 515))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("By now, you should have a basic understanding of what Checkers+ has to offer. Go give it a try!", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 640))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 540))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("If you ever need to view this tutorial again, you can access it from the main menu. Have fun!", True, (255, 255, 255))
-    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 665))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 565))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
 
     # Exit button to return back to menu
@@ -493,7 +493,7 @@ def show_leaderboard():
     ]
 
     # Set up the new window for the leaderboard
-    leaderboard_screen = pygame.display.set_mode((1200, 1000))
+    leaderboard_screen = pygame.display.set_mode((1000, 700))
     pygame.display.set_caption("Leaderboard")
 
     # Leaderboard header
