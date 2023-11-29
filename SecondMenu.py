@@ -1,6 +1,7 @@
 import pygame
 from Main_Board import MAIN_Board
 from Player import Player
+from Player import user_scores
 from constants import BLACK, WHITE
 
 Width, Height = 1000, 700
@@ -10,14 +11,13 @@ screen = pygame.display.set_mode([Width, Height])
 
 player1_name = Player("Player 1")
 player2_name = Player("Player 2")
-user_scores = {}
 
 class SecondMenu:
 
     def start_game_menu(self):
         global player1_name, player2_name
         pygame.init()
-
+        
         start_game_screen = pygame.display.set_mode([Width, Height])
         pygame.display.set_caption("Start Game Menu")
 
