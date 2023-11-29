@@ -118,7 +118,8 @@ class SecondMenu:
         pygame.quit()
 
     def start_game_vs_computer(self, screen):
-        main_board = MAIN_Board(WHITE, BLACK, (0, 0, 0))
+        #main_Board changes piece color
+        main_board = MAIN_Board(RED, GREY, (0, 0, 0))
         running = True
         while running:
             for event in pygame.event.get():
