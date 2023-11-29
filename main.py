@@ -493,7 +493,7 @@ def show_leaderboard():
     ]
 
     # Set up the new window for the leaderboard
-    leaderboard_screen = pygame.display.set_mode((1200, 1000))
+    leaderboard_screen = pygame.display.set_mode((1000, 700))
     pygame.display.set_caption("Leaderboard")
 
     # Leaderboard header
