@@ -20,22 +20,3 @@ class ScoreManager:
             json.dump(self.user_scores, file)
 
 
-# Example usage:
-score_manager = ScoreManager("scores.json")
-
-# Create players
-player1 = Player("user1")
-player2 = Player("user2")
-
-# Player 1 wins a game
-player1.win = 1
-
-# Update scores
-score_manager.update_scores(player1)
-score_manager.update_scores(player2)
-
-# Save scores to file
-score_manager.save_scores()
-
-# Display user scores
-print("User Scores:", score_manager.user_scores)
