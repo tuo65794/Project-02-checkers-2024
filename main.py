@@ -1,12 +1,10 @@
+# main.py
+# holds menu operations for the game including sound, settings, leaderboard, tutorial, and board customization
+
 import pygame
 from SecondMenu import SecondMenu
-from Main_Board import MAIN_Board
-from constants import BLACK, WHITE
-from pieces import Piece
-import time
-import string
+from constants import BLUE, YELLOW, RED, GREEN
 
-# import menu currently disabled
 pygame.init()
 pygame.mixer.init() # initialize pygame mixer for music
 
@@ -50,17 +48,14 @@ message_text = message_font.render(message, True, (255, 255, 255))
 message_rect = message_text.get_rect(center=(Width // 2, 55))
 # Credits text
 credits_text1 = credits_font.render(credits1, True, (255, 255, 255))
-credits_rect1 = credits_text1.get_rect(center=(Width // 2, 940))
+credits_rect1 = credits_text1.get_rect(center=(Width // 2, 650))
 credits_text2 = credits_font.render(credits2, True, (255, 255, 255))
-credits_rect2 = credits_text2.get_rect(center=(Width // 2, 960))
+credits_rect2 = credits_text2.get_rect(center=(Width // 2, 670))
 
 second_menu_instance = SecondMenu()
 
 # run until the user closes application
 def main():
-    
-    #second_menu_instance = SecondMenu()
-
     running = True
     while running:
         # did the user click the window close button?
@@ -83,7 +78,6 @@ def main():
 
         #image of the background
         screen.blit(background_image, (0, 0))
-
         # display title information and credits
         screen.blit(title_text, title_rect)
         screen.blit(message_text, message_rect)
@@ -92,8 +86,6 @@ def main():
         
         # call PvP button function from menu.py
         menu_buttons()
-
-        # flip the display
         pygame.display.flip()
 
     # done! time to quit
@@ -267,7 +259,7 @@ def menu_buttons(): # function to create menu buttons
 
     return button_rect, button_rect_2, button_rect_3, button_rect_4, button_rect_5
 
-def tutorial(): # tutorial prompt (subject to change text)
+def tutorial(): # tutorial prompt
     # load image used in tutorial
     checkers_icon = pygame.image.load('pics/checkersguy_icon.png')
     tutorial_screen = pygame.display.set_mode([Width, Height])
@@ -413,7 +405,7 @@ def settings(): # settings menu
                         music_loop()  # Start the music from next song in tracklist
                         music_playing = True
 
-def show_leaderboard():
+def show_leaderboard(): # leaderboard for game
     pygame.init()
     # Dummy data for the leaderboard (replace this with your actual data)
     leaderboard_data = [
@@ -432,7 +424,7 @@ def show_leaderboard():
     # Set up the new window for the leaderboard
     leaderboard_screen = pygame.display.set_mode((1000, 700))
     pygame.display.set_caption("Leaderboard")
-
+    screen.fill((128, 128, 128))
     # Leaderboard header
     header_font = pygame.font.Font(None, 36)
     header_text = header_font.render("Leaderboard", True, (255, 255, 255))
@@ -469,84 +461,62 @@ def show_leaderboard():
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
 
-def board_customization():
-        board_customization_screen = pygame.display.set_mode([Width, Height])
-        background_image = pygame.image.load("checkers.jpg")
-        background_image = pygame.transform.scale(background_image, (Width, Height))
-        # image of the background
-        board_customization_screen.blit(background_image, (0, 0))
-        board_customization_screen.blit(title_text, title_rect)
-        board_customization_screen.blit(message_text, message_rect)
-        board_customization_screen.blit(credits_text1, credits_rect1)
-        board_customization_screen.blit(credits_text2, credits_rect2)
-        icon_size = (45, 45)
-        position = (Width // 2-150, Height // 3-25)
-        size = (300, 50)  # width, height
-        # Exit button to return back to menu
-        exit_button_font = pygame.font.Font(None, 32)
-        exit_button_text = exit_button_font.render("Exit Settings", True, (255, 255, 255))
-        exit_button_rect = exit_button_text.get_rect(center=(Width // 2, Height - 100))
-        pygame.draw.rect(board_customization_screen, (128, 128, 128), exit_button_rect.inflate(20, 10))
-        board_customization_screen.blit(exit_button_text, exit_button_rect)
+def board_customization(): # board customization menu, allows user to change color of board to either red, blue, yellow, or green
+    board_customization_screen = pygame.display.set_mode([Width, Height])
+    background_image = pygame.image.load("checkers.jpg")
+    background_image = pygame.transform.scale(background_image, (Width, Height))
+    # image of the background
+    board_customization_screen.blit(background_image, (0, 0))
+    board_customization_screen.blit(title_text, title_rect)
+    board_customization_screen.blit(message_text, message_rect)
+    board_customization_screen.blit(credits_text1, credits_rect1)
+    board_customization_screen.blit(credits_text2, credits_rect2)
+    # Exit button to return back to menu
+    exit_button_font = pygame.font.Font(None, 32)
+    exit_button_text = exit_button_font.render("Exit Board Customization", True, (255, 255, 255))
+    exit_button_rect = exit_button_text.get_rect(center=(Width // 2, Height - 100))
+    pygame.draw.rect(board_customization_screen, (128, 128, 128), exit_button_rect.inflate(20, 10))
+    board_customization_screen.blit(exit_button_text, exit_button_rect)
 
-        # Piece 1 Color text
-        board_color_font = pygame.font.Font(None, 32)
-        board_color_text = board_color_font.render("Piece 1 Color", True, (255, 255, 255))
-        text_rect = board_color_text.get_rect(center=(Width // 2 - 200, Height // 3 + 80))
-         # Enlarge the box behind the text
-        box_width = text_rect.width + 40  # Increase width
-        box_height = text_rect.height + 20  # Increase height
-        box_rect = pygame.Rect(text_rect.left - 20, text_rect.top - 10, box_width, box_height)
-        # Draw the enlarged box behind the text
-        pygame.draw.rect(board_customization_screen, (128, 128, 128), box_rect)
-        board_customization_screen.blit(board_color_text, text_rect)
+    # Board Color Text
+    board_color_font = pygame.font.Font(None, 32)
+    board_color_text = board_color_font.render("Board Color", True, (255, 255, 255))
+    text_rect = board_color_text.get_rect(center=(Width // 2 - 200, Height // 3 + 80))
+    # Enlarge the box behind the text
+    box_width = text_rect.width + 40  # Increase width
+    box_height = text_rect.height + 20  # Increase height
+    box_rect = pygame.Rect(text_rect.left - 20, text_rect.top - 10, box_width, box_height)
+    # Draw the enlarged box behind the text
+    pygame.draw.rect(board_customization_screen, (128, 128, 128), box_rect)
+    board_customization_screen.blit(board_color_text, text_rect)
         
-        square_side = 50  # Size of the square
-        red_square_rect = pygame.Rect(text_rect.right + 50, text_rect.centery - square_side // 2, square_side, square_side)
-        pygame.draw.rect(board_customization_screen, (200, 0, 0), red_square_rect)  # Red square
-        blue_square_rect = pygame.Rect(red_square_rect.right + 20, red_square_rect.top, square_side, square_side)
-        pygame.draw.rect(board_customization_screen, (0, 0, 200), blue_square_rect)  # Blue square
-        white_square_rect = pygame.Rect(blue_square_rect.right + 20, blue_square_rect.top, square_side, square_side)
-        pygame.draw.rect(board_customization_screen, (255, 255, 255), white_square_rect)  # White square
+    square_side = 50  # Size of the square
+    red_square_rect = pygame.Rect(text_rect.right + 50, text_rect.centery - square_side // 2, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, RED, red_square_rect)  # Red square
+    blue_square_rect = pygame.Rect(red_square_rect.right + 20, red_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, BLUE, blue_square_rect)  # Blue square
+    yellow_square_rect = pygame.Rect(blue_square_rect.right + 20, blue_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, YELLOW, yellow_square_rect)  # Yellow square
+    green_square_rect = pygame.Rect(yellow_square_rect.right + 20, yellow_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, GREEN, green_square_rect)  # Green square
 
-        # Piece 2 Color Text
-        piece_color_font = pygame.font.Font(None, 32)
-        piece_color_text = piece_color_font.render("Piece 2 Color", True, (255, 255, 255))
-        text_rect = piece_color_text.get_rect(center=(Width // 2 - 200, Height // 3 + 150))  # Adjusted downward
-        box_width = text_rect.width + 40  # Increase width
-        box_height = text_rect.height + 20  # Increase height
-        box_rect = pygame.Rect(text_rect.left - 20, text_rect.top - 10, box_width, box_height)
-        pygame.draw.rect(board_customization_screen, (128, 128, 128), box_rect)
-        board_customization_screen.blit(piece_color_text, text_rect)
+    pygame.display.flip()
 
-        yellow_square_rect = pygame.Rect(text_rect.right + 50, text_rect.centery - square_side // 2, square_side, square_side)
-        pygame.draw.rect(board_customization_screen, (255, 255, 0), yellow_square_rect)  # Yellow square
-        green_square_rect = pygame.Rect(yellow_square_rect.right + 20, yellow_square_rect.top, square_side, square_side)
-        pygame.draw.rect(board_customization_screen, (0, 128, 0), green_square_rect)  # Green square
-        grey_square_rect = pygame.Rect(blue_square_rect.right + 20, green_square_rect.top, square_side, square_side)
-        pygame.draw.rect(board_customization_screen, (128, 128, 128), grey_square_rect)  # Grey square
-
-        pygame.display.flip()
-
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if exit_button_rect.collidepoint(event.pos):  # if exit settings button is clicked
                     return
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if exit_button_rect.collidepoint(event.pos):  # if exit settings button is clicked
-                        return
-                    if red_square_rect.collidepoint(event.pos): # make piece1 red
-                        second_menu_instance.color1 = (200, 0, 0)
-                    if blue_square_rect.collidepoint(event.pos): # make piece1 blue
-                        second_menu_instance.color1 = (0, 0, 200)
-                    if white_square_rect.collidepoint(event.pos): # make piece1 white
-                        second_menu_instance.color1 = (255, 255, 255)
-                    if yellow_square_rect.collidepoint(event.pos): # make piece2 yellow
-                        second_menu_instance.color2 = (255, 255, 0)
-                    if green_square_rect.collidepoint(event.pos): # make piece2 green
-                        second_menu_instance.color2 = (0, 128, 0)
-                    if grey_square_rect.collidepoint(event.pos): # make piece2 grey
-                        second_menu_instance.color2 = (128, 128, 128)
+                if red_square_rect.collidepoint(event.pos): # make board red
+                    second_menu_instance.color = RED
+                if blue_square_rect.collidepoint(event.pos): # make board blue
+                    second_menu_instance.color = BLUE
+                if yellow_square_rect.collidepoint(event.pos): # make board yellow
+                    second_menu_instance.color = YELLOW
+                if green_square_rect.collidepoint(event.pos): # make board green
+                    second_menu_instance.color = GREEN
 
 main()
