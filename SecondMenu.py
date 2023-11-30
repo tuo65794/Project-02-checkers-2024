@@ -118,40 +118,55 @@ class SecondMenu:
                         
     
     def start_game_vs_player(self, screen):
-        main_board = MAIN_Board(self.color2, self.color1, (0, 0, 0))
+        main_board = MAIN_Board(self.color1, self.color2, (0, 0, 0))
+        screen.fill((0, 0, 0))
+        # Draw the board and pieces
+        main_board.draw_board(screen)
+        main_board.draw_pieces(screen)
+        # Exit Button
+        button_font = pygame.font.Font(None, 32)
+        exit_text = button_font.render("Exit Game", True, (255, 255, 255))
+        exit_button_rect = exit_text.get_rect(center=(Width // 2+350, Height - 100))
+        pygame.draw.rect(screen, (128, 128, 128), exit_button_rect)
+        screen.blit(exit_text, exit_button_rect)
+        pygame.display.flip()
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
-            screen.fill((0, 0, 0))
-            
-            # Draw the board and pieces
-            main_board.draw_board(screen)
-            main_board.draw_pieces(screen)
+                    pygame.quit()
+                    return
+                if event.type == pygame.MOUSEBUTTONDOWN:  # If the user clicks the mouse
+                    if exit_button_rect.collidepoint(event.pos):
+                        running = False
 
-            pygame.display.flip()
-
-        pygame.quit()
+        self.start_game_menu()
 
     def start_game_vs_computer(self, screen):
         main_board = MAIN_Board(self.color1, self.color2, (0, 0, 0))
+        screen.fill((0, 0, 0))
+        # Draw the board and pieces
+        main_board.draw_board(screen)
+        main_board.draw_pieces(screen)
+        # Exit Button
+        button_font = pygame.font.Font(None, 32)
+        exit_text = button_font.render("Exit Game", True, (255, 255, 255))
+        exit_button_rect = exit_text.get_rect(center=(Width // 2+350, Height - 100))
+        pygame.draw.rect(screen, (128, 128, 128), exit_button_rect)
+        screen.blit(exit_text, exit_button_rect)
+        pygame.display.flip()
+
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    pygame.quit()
+                    return
+                if event.type == pygame.MOUSEBUTTONDOWN:  # If the user clicks the mouse
+                    if exit_button_rect.collidepoint(event.pos):
+                        running = False
 
-            screen.fill((0, 0, 0))
-            
-            # Draw the board and pieces
-            main_board.draw_board(screen)
-            main_board.draw_pieces(screen)
-
-            pygame.display.flip()
-
-        pygame.quit()
-    
+        self.start_game_menu()
  
     # Display the player's name at the right bottom corner
     #player_name_font = pygame.font.Font(None, 24)
