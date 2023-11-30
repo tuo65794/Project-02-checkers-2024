@@ -38,7 +38,10 @@ class Main_Board: # board class that handles board logic
                 self.red_kings += 1 
 
     def get_piece(self, row, col): # return piece at given position
-        return self.board[row][col]
+        try:
+            return self.board[row][col]
+        except:
+            print("Click inside the Board")
 
     def create_board(self): # create board with pieces
         for row in range(ROWS):

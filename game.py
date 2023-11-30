@@ -30,11 +30,14 @@ class Game: # game class to handle game logic, color represents board color chos
                 self.selected = None
                 self.select(row, col)
         
-        piece = self.board.get_piece(row, col)
-        if piece != 0 and piece.color == self.turn:
-            self.selected = piece
-            self.valid_moves = self.board.get_valid_moves(piece)
-            return True
+        try:# this try catch must be here when user click outside board
+            piece = self.board.get_piece(row, col)
+            if piece != 0 and piece.color == self.turn:
+                self.selected = piece
+                self.valid_moves = self.board.get_valid_moves(piece)
+                return True
+        except:
+            print("click_On_BOard")
             
         return False
 
