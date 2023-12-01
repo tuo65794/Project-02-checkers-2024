@@ -1,6 +1,5 @@
 import json
 from Player import Player
-from SecondMenu import SecondMenu
 
 class ScoreManager:
     
@@ -18,5 +17,28 @@ class ScoreManager:
     def save_scores(self):
         with open(self.filename, 'w') as file:
             json.dump(self.user_scores, file)
-
+        
+    def add_user(self, username):
+        # Check if the username already exists in the hashmap
+        if username not in self.user_scores:
+            # If not, add the username with a default score of 0
+            self.user_scores[username] = 0
+            print(f"User {username} added with a default score of 0.")
+        else:
+            print(f"User {username} already exists.")
+        
+    # Function to update scores
+    def update_scores(self, player):
+        if player.username in self.user_scores:
+            if player.win == 1:
+                self.user_scores[player.username] += 50
+            elif player.win == 0:
+                self.user_scores[player.username] -= 50
+            elif player.win == 0 and player.score <= 0:
+                self.user_scores[player.username] = 0
+            
+            player.score = self.user_scores[player.username]
+            self.save_scores()
+    
+    
 
