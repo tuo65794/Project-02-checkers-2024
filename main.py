@@ -4,6 +4,7 @@
 import pygame
 from SecondMenu import SecondMenu
 from constants import BLUE, YELLOW, RED, GREEN
+from ScoreManager import ScoreManager
 
 pygame.init()
 pygame.mixer.init() # initialize pygame mixer for music
@@ -405,22 +406,7 @@ def settings(): # settings menu
                         music_loop()  # Start the music from next song in tracklist
                         music_playing = True
 
-def show_leaderboard(): # leaderboard for game
-    pygame.init()
-    # Dummy data for the leaderboard (replace this with your actual data)
-    leaderboard_data = [
-        ("Player1", 150),
-        ("Player2", 120),
-        ("Player3", 100),
-        ("Player4", 90),
-        ("Player5", 80),
-        ("Player6", 70),
-        ("Player7", 60),
-        ("Player8", 50),
-        ("Player9", 40),
-        ("Player10", 30)
-    ]
-
+def show_leaderboard():
     # Set up the new window for the leaderboard
     leaderboard_screen = pygame.display.set_mode((1000, 700))
     pygame.display.set_caption("Leaderboard")
@@ -430,25 +416,34 @@ def show_leaderboard(): # leaderboard for game
     header_text = header_font.render("Leaderboard", True, (255, 255, 255))
     header_rect = header_text.get_rect(center=(500, 40))
     leaderboard_screen.blit(header_text, header_rect)
+    
+    score_manager = ScoreManager("user_data/user_data.json")
+    # Load scores from the JSON file
+    score_manager.load_scores()
 
-    # Display player scores
-    score_font = pygame.font.Font(None, 28)
-    vertical_position = 80  # Adjust the starting vertical position as needed
+    # Sort players based on their scores in descending order
+    sorted_players = sorted(score_manager.user_scores.items(), key=lambda x: x[1], reverse=True)
 
-    for rank, (player_name, score) in enumerate(leaderboard_data, start=1):
-        player_text = score_font.render(f"{rank}. {player_name}: {score}", True, (255, 255, 255))
-        player_rect = player_text.get_rect(center=(500, vertical_position))
-        leaderboard_screen.blit(player_text, player_rect)
-        vertical_position += 30  # Adjust the vertical spacing as needed
+    # Extract the top ten players or all players if less than ten
+    top_ten_players = sorted_players[:10]
 
+    leaderboard_font = pygame.font.Font(None, 45)
+    leaderboard_y = 80  # Adjust the vertical position as needed
+
+    # Display the leaderboard in the new window
+    for i, (username, score) in enumerate(top_ten_players):
+        leaderboard_text = leaderboard_font.render(f"{i + 1}. {username}: {score} points", True, (255, 255, 255))
+        leaderboard_text_rect = leaderboard_text.get_rect(center=(200, leaderboard_y + i * 30))
+        leaderboard_screen.blit(leaderboard_text, leaderboard_text_rect)
+        
     pygame.display.flip()
 
     # Exit button to return back to menu
     exit_button_font = pygame.font.Font(None, 32)
     exit_button_text = exit_button_font.render("Return to Main Menu", True, (255, 255, 255))
     exit_button_rect = exit_button_text.get_rect(center=(Width // 2, Height - 50))
-    pygame.draw.rect(leaderboard_screen, (64, 64, 64), exit_button_rect.inflate(20, 10))
-    leaderboard_screen.blit(exit_button_text, exit_button_rect)
+    pygame.draw.rect(screen, (64, 64, 64), exit_button_rect.inflate(20, 10))
+    screen.blit(exit_button_text, exit_button_rect)
 
     pygame.display.flip()
 

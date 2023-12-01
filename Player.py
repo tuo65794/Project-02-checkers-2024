@@ -9,8 +9,9 @@ user_scores = {}
 
 class Player:
     
-    def __init__(self, username):
+    def __init__(self, username, score):
         self.username = username
+        self.score = 0
         self.win = 0
         
     # Function to draw the text input box on the screen
@@ -68,27 +69,9 @@ class Player:
         self.username = player_name
 
         return player_name
-
-    def add_user(self, username):
-            global user_scores  # Use the global keyword to indicate that you're modifying the global variable
-            # Check if the username already exists in the hashmap
-            if username not in user_scores:
-                # If not, add the username with a default score of 0
-                user_scores[username] = 0
-                print(f"User {username} added with a default score of 0.")
-            else:
-                print(f"User {username} already exists.")
-
-    # Function to update scores
-    def update_scores(player):
-        if player.username in user_scores:
-            if(player.win == 1):
-                user_scores[player.username] += 50
-            elif(player.win == 0):   
-                user_scores[player.username] -= 50
         
-    def update_win(player):
-        player.win = 1
+    def update_win(self):
+        self.win = 1
 
-    def update_loss(player):
-        player.win = 0
+    def update_loss(self):
+        self.win = 0

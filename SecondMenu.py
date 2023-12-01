@@ -1,6 +1,7 @@
 import pygame
 from Player import Player
 from Player import user_scores
+from ScoreManager import ScoreManager
 from constants import RED, SQUARE_SIZE, WHITE
 from game import Game
 from computer import minimax
@@ -10,8 +11,9 @@ background_image = pygame.image.load("checkers.jpg")
 background_image = pygame.transform.scale(background_image, (Width, Height))
 screen = pygame.display.set_mode([Width, Height])
 
-player1_name = Player("Player 1")
-player2_name = Player("Player 2")
+player1_name = Player("Player 1", 0)
+player2_name = Player("Player 2", 0)
+score_manager = ScoreManager("user_data/user_data.json")
 
 def get_row_col_from_mouse(pos):
     x, y = pos
@@ -26,6 +28,7 @@ class SecondMenu:
     
     def start_game_menu(self):
         global player1_name, player2_name
+
         pygame.init()
         
         start_game_screen = pygame.display.set_mode([Width, Height])
@@ -105,6 +108,8 @@ class SecondMenu:
         mouse = pygame.mouse.get_pos()
         while True:
             for event in pygame.event.get():
+                score_manager.load_scores()
+                
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
@@ -113,19 +118,23 @@ class SecondMenu:
                         return  # exit start game  and return to menu
                     elif button_rect.collidepoint(event.pos):  # Start Game VS Player button clicked
                         player1_name.get_player_name()
-                        player1_name.add_user(player1_name.username)
+                        score_manager.add_user(player1_name.username)
                         player2_name.get_player_name()
-                        player2_name.add_user(player2_name.username)
+                        score_manager.add_user(player2_name.username)
                         self.start_game_vs_player(start_game_screen)
                     elif button_rect_2.collidepoint(event.pos):  # Start Game VS Computer button clicked
                         player1_name.get_player_name()
-                        player1_name.add_user(player1_name.username)
+                        score_manager.add_user(player1_name.username)
                         self.start_game_vs_computer(start_game_screen)
+                        
+                score_manager.save_scores()
+                            
                         
     def start_game_vs_player(self, screen): # start game against player
         run = True
         clock = pygame.time.Clock()
         game = Game(screen, self.color)
+        global score_manager, user_scores
 
         # Exit Button
         button_font = pygame.font.Font(None, 32)
@@ -140,6 +149,16 @@ class SecondMenu:
             if game.winner() != None:
                 print(game.winner())
                 run = False
+                if game.winner() == RED:
+                    player1_name.update_win()
+                    score_manager.update_scores(player1_name)
+                    player2_name.update_loss()
+                    score_manager.update_scores(player2_name)
+                elif game.winner() == WHITE:
+                    player2_name.update_win()
+                    score_manager.update_scores(player2_name)
+                    player1_name.update_loss()
+                    score_manager.update_scores(player1_name)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -158,6 +177,7 @@ class SecondMenu:
         run = True
         clock = pygame.time.Clock()
         game = Game(screen, self.color)
+        global score_manager, user_scores
 
         # Exit Button
         button_font = pygame.font.Font(None, 32)
@@ -176,6 +196,12 @@ class SecondMenu:
             if game.winner() != None:
                 print(game.winner())
                 run = False
+                if game.winner() == RED:
+                    player1_name.update_win()
+                    score_manager.update_scores(player1_name)
+                else:
+                    player1_name.update_loss()
+                    score_manager.update_scores(player1_name)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
