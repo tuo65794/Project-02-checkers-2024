@@ -16,10 +16,10 @@ screen = pygame.display.set_mode([Width, Height])
 pygame.display.set_caption("Checkers+")
 
 # background music
-tracks = ["music/Track1.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3"] # can add more or delete tracks if we do not like them
+tracks = ["music/Track5.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3", "music/Track1.mp3", "music/Track6.mp3", "music/Track7.mp3", "music/Track8.mp3"] # can add more or delete tracks if we do not like them
 current_track = 0
 SONG_END = pygame.USEREVENT + 1
-def music_loop():
+def music_loop(): # function to loop through music tracks
     global current_track
     pygame.mixer.music.load(tracks[current_track])
     pygame.mixer.music.set_volume(0.1) # 0.1-1.0, can change accordingly
@@ -196,19 +196,19 @@ def menu_buttons(): # function to create menu buttons
 
     color = (128, 128, 128) # grey
     cursor_color = (100, 100, 100) # darker grey
-    position = (Width // 2 - 150, Height // 3 + 200)  # Adjust the vertical position as needed
+    position = (Width // 2 - 150, Height // 3 + 210)  # Adjust the vertical position as needed
     size = (300, 50)  # width, height
 
     button_font = pygame.font.Font(None, 32)
     button_text = button_font.render("View Rankings", True, (255, 255, 255)) # Button text and color
-    button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3 + 225))  # Adjust the vertical position as needed
+    button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3 + 235))  # Adjust the vertical position as needed
     pygame.draw.rect(screen, color, pygame.Rect(position, size))
     screen.blit(button_text, button_text_rect)
 
     # Draw the icon next to the text with the specified size
     leaderboard_icon_resized = pygame.transform.scale(leaderboard_icon, icon_size)
     leaderboard_icon_rect = leaderboard_icon_resized.get_rect(
-    topleft=(Width // 2 - 150 + 10, Height // 3 + 200 + (button_height - icon_size[1]) // 2))
+    topleft=(Width // 2 - 150 + 10, Height // 3 + 210 + (button_height - icon_size[1]) // 2))
 
     pygame.draw.rect(screen, color, pygame.Rect(position, size))
     screen.blit(button_text, button_text_rect)
@@ -226,7 +226,7 @@ def menu_buttons(): # function to create menu buttons
     screen.blit(leaderboard_icon_resized, leaderboard_icon_rect.topleft)  # Draw the icon after drawing the button
     screen.blit(button_text, button_text_rect)
 
-    # Customize Piece button
+    # Customize Board button
     board_icon = pygame.image.load('pics/colorwheel_icon.png')
 
     color = (128, 128, 128) # grey
@@ -235,7 +235,7 @@ def menu_buttons(): # function to create menu buttons
     size = (300, 50)  # width, height
 
     button_font = pygame.font.Font(None, 32)
-    button_text = button_font.render("Customize Pieces", True, (255, 255, 255)) # Button text and color
+    button_text = button_font.render("Customize Board", True, (255, 255, 255)) # Button text and color
     button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3 + 310))  # Adjust the vertical position as needed
     pygame.draw.rect(screen, color, pygame.Rect(position, size))
     screen.blit(button_text, button_text_rect)
@@ -280,16 +280,16 @@ def tutorial(): # tutorial prompt
 
     # First paragraph
     tutorial_font = pygame.font.Font(None, 25)
-    tutorial_text = tutorial_font.render("There are many features accessible from the Checkers+ main menu. You can start a PvP (player versus player) game,", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("There are many features accessible from the Checkers+ menu. You can start a player versus player game, a player", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 145))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("a PvC (player versus computer) game, and access other features like the settings, leaderboard, and this tutorial!", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("versus computer game, and access features like the settings, leaderboard, board customization, and this tutorial!", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 170))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("The settings will allow you to turn music on or off, and customize the checkers board to your liking.", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("The settings will allow you to turn music on or off. You cannot change this once this game starts.", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 195))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("The leaderboard will show recent match results, displaying who won and loss.", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("The rankings will show how many points you have as a player, so make sure the name you enter is correct!", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 220))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
 
@@ -305,29 +305,35 @@ def tutorial(): # tutorial prompt
     tutorial_text = tutorial_font.render("To play Checkers+, standard checkers rules are applied...with a twist!", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 365))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("In standard checkers, players can only move a piece diagonally until that piece has reached the last row", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("You only have 5 seconds to make a move, so act fast! If you do not make a move within 5 seconds, ", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 390))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("of the opposing side. In our game, you will be allowed to move a piece backwards every 45 seconds, even", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("you will lose your turn. Clicking on a piece will display available moves for that piece.", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 415))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("if that piece has not yet reached the last row. You also only have 15 seconds to make a move, so think fast!", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("Like standard checkers, once a piece reaches the opposing player's last row, that piece will become a king.", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 440))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("Your 45 second timer will not reset until you make a backward move. Don't let them go to waste!", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("This is indicated by a crown symbol that will display on the piece. Remember, you can move this piece backwards now!", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 465))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("When the game starts, you will be asked to enter the names of the players (or player, if playing against the computer).", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 490))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("Doing this will allow your name(s) and score to be updated on the leaderboard.", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("Doing this will allow your name(s) and score to be updated on your local leaderboard. 50 points for a win, and", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 515))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("By now, you should have a basic understanding of what Checkers+ has to offer. Go give it a try!", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("-50 points for a loss. By now, you should have a basic understanding of what Checkers+ has to offer. Go give it a try!", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 540))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("If you ever need to view this tutorial again, you can access it from the main menu. Have fun!", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 565))
+    tutorial_screen.blit(tutorial_text, tutorial_rect)
+    tutorial_text = tutorial_font.render("Note - Player VS Computer is currently under development. In some situations, the computer will not make the right", True, (255, 255, 255))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 590))
+    tutorial_screen.blit(tutorial_text, tutorial_rect)
+    tutorial_text = tutorial_font.render("move, leaving your game stuck. Player VS player is recommended!", True, (255, 255, 255))
+    tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 615))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
 
     # Exit button to return back to menu
@@ -409,7 +415,6 @@ def settings(): # settings menu
 def show_leaderboard():
     # Set up the new window for the leaderboard
     leaderboard_screen = pygame.display.set_mode((1000, 700))
-    pygame.display.set_caption("Leaderboard")
     screen.fill((128, 128, 128))
     # Leaderboard header
     header_font = pygame.font.Font(None, 36)

@@ -10,29 +10,27 @@ Width, Height = 1000, 700
 background_image = pygame.image.load("checkers.jpg")
 background_image = pygame.transform.scale(background_image, (Width, Height))
 screen = pygame.display.set_mode([Width, Height])
+pygame.init()
 
 player1_name = Player("Player 1", 0)
 player2_name = Player("Player 2", 0)
 score_manager = ScoreManager("user_data/user_data.json")
 
-def get_row_col_from_mouse(pos):
+def get_row_col_from_mouse(pos): # get row and column from mouse position, necessary for selecting pieces in class
     x, y = pos
     row = y // SQUARE_SIZE
     col = x // SQUARE_SIZE
     return row, col
 
 class SecondMenu:
-    
-    #default board color if users do not choose a color
+
+    # Default board color if users do not choose a color
     color = RED
     
     def start_game_menu(self):
         global player1_name, player2_name
-
-        pygame.init()
-        
+        # pygame.init()
         start_game_screen = pygame.display.set_mode([Width, Height])
-        pygame.display.set_caption("Start Game Menu")
 
         message = "Select Game Mode"
         credits1 = "Developed by Wander Cerda-Torres, Barry Lin,"
@@ -115,7 +113,7 @@ class SecondMenu:
                     return
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if button_rect_3.collidepoint(event.pos):  # if exit button is clicked
-                        return  # exit start game  and return to menu
+                        return  # exit start game menu and return to menu
                     elif button_rect.collidepoint(event.pos):  # Start Game VS Player button clicked
                         player1_name.get_player_name()
                         score_manager.add_user(player1_name.username)
@@ -128,12 +126,11 @@ class SecondMenu:
                         self.start_game_vs_computer(start_game_screen)
                         
                 score_manager.save_scores()
-                            
-                        
+                  
     def start_game_vs_player(self, screen): # start game against player
         run = True
         clock = pygame.time.Clock()
-        game = Game(screen, self.color)
+        game = Game(screen, self.color, player1_name.username, player2_name.username)
         global score_manager, user_scores
 
         # Exit Button
@@ -176,7 +173,7 @@ class SecondMenu:
     def start_game_vs_computer(self, screen): # start game vs computer minimax algorithm
         run = True
         clock = pygame.time.Clock()
-        game = Game(screen, self.color)
+        game = Game(screen, self.color, player1_name.username, "Computer")
         global score_manager, user_scores
 
         # Exit Button
@@ -191,7 +188,7 @@ class SecondMenu:
             clock.tick(60)
             if game.turn == WHITE:
                 # prints computer thinking once 
-                print("TWOO_Computer is Thinking")
+                print("Computer is Thinking")
                 value, new_board = minimax(game.get_board(), 4, WHITE, game)
                 game.ai_move(new_board) 
 
