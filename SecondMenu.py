@@ -12,6 +12,8 @@ screen = pygame.display.set_mode([Width, Height])
 
 player1_name = Player("Player 1")
 player2_name = Player("Player 2")
+cursor_color = (100, 100, 100) # darker grey
+color = (128, 128, 128) # grey
 
 def get_row_col_from_mouse(pos):
     x, y = pos
@@ -66,25 +68,25 @@ class SecondMenu:
         size = (300, 50)  # width, height
 
         button_font = pygame.font.Font(None, 32)
-        button_text = button_font.render("Start Game VS Player", True, (255, 255, 255))  # Button text and color
-        button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3))
+        button_text1 = button_font.render("Start Game VS Player", True, (255, 255, 255))  # Button text and color
+        button_text_rect1 = button_text1.get_rect(center=(Width // 2, Height // 3))
 
         # Create button on screen using position and size parameters
         pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
-        start_game_screen.blit(button_text, button_text_rect)
+        start_game_screen.blit(button_text1, button_text_rect1)
         button_rect = pygame.Rect(position, size)
 
         # PvC Button
         position = (Width // 2 - 150, Height // 3 + button_height + spacing)
         size = (300, button_height)  # width, height
 
-        button_text = button_font.render("Start Game VS Computer", True, (255, 255, 255))  # Button text and color
-        button_text_rect = button_text.get_rect(
+        button_text2 = button_font.render("Start Game VS Computer", True, (255, 255, 255))  # Button text and color
+        button_text_rect2 = button_text2.get_rect(
         center=(Width // 2, Height // 3 + button_height + spacing + button_height // 2))
 
         # Create button on screen using position and size parameters
         pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
-        start_game_screen.blit(button_text, button_text_rect)
+        start_game_screen.blit(button_text2, button_text_rect2)
         button_rect_2 = pygame.Rect(position, size)
         
         # Exit Second Menu Button
@@ -92,18 +94,54 @@ class SecondMenu:
         size = (300, 50)  # width, height
 
         button_font = pygame.font.Font(None, 32)
-        button_text = button_font.render("Back to Main Menu", True, (255, 255, 255)) # Button text and color
-        button_text_rect = button_text.get_rect(center=(Width // 2, Height // 3+160))
+        button_text3 = button_font.render("Back to Main Menu", True, (255, 255, 255)) # Button text and color
+        button_text_rect3 = button_text3.get_rect(center=(Width // 2, Height // 3+160))
         pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
-        start_game_screen.blit(button_text, button_text_rect)
+        start_game_screen.blit(button_text3, button_text_rect3)
 
         pygame.draw.rect(start_game_screen, color, pygame.Rect(position, size))
-        start_game_screen.blit(button_text, button_text_rect)
+        start_game_screen.blit(button_text3, button_text_rect3)
         button_rect_3 = pygame.Rect(position, size)
 
         pygame.display.flip()
         mouse = pygame.mouse.get_pos()
+    
+    
+            
+        
         while True:
+            mouse = pygame.mouse.get_pos()
+            if button_rect_3.collidepoint(mouse):
+                
+                pygame.draw.rect(start_game_screen, cursor_color, button_rect_3) # Change color when cursor hovered over
+                start_game_screen.blit(button_text3, button_text_rect3)
+                pygame.display.update()
+            elif button_rect_2.collidepoint(mouse):
+                
+                pygame.draw.rect(start_game_screen, cursor_color, button_rect_2)
+                start_game_screen.blit(button_text2, button_text_rect2)
+                pygame.display.update()
+            
+            elif button_rect.collidepoint(mouse):
+                pygame.draw.rect(start_game_screen, cursor_color, button_rect)
+                start_game_screen.blit(button_text1, button_text_rect1)
+                pygame.display.update()
+                
+            else:
+                pygame.display.update()
+                pygame.draw.rect(start_game_screen, color, button_rect_3) # stay original color if cursor not hovering over
+                start_game_screen.blit(button_text3, button_text_rect3)
+                
+                pygame.draw.rect(start_game_screen, color, button_rect_2)
+                start_game_screen.blit(button_text2, button_text_rect2)
+                
+                pygame.draw.rect(start_game_screen, color, button_rect)
+                start_game_screen.blit(button_text1, button_text_rect1)
+                
+                pygame.display.update()
+                
+                
+                
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
