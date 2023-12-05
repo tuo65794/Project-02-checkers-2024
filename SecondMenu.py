@@ -1,6 +1,7 @@
 import pygame
 from Player import Player
 from Player import user_scores
+from ScoreManager import ScoreManager
 from constants import RED, SQUARE_SIZE, WHITE
 from game import Game
 from computer import minimax
@@ -9,29 +10,28 @@ Width, Height = 1000, 700
 background_image = pygame.image.load("checkers.jpg")
 background_image = pygame.transform.scale(background_image, (Width, Height))
 screen = pygame.display.set_mode([Width, Height])
+pygame.init()
 
 player1_name = Player("Player 1")
 player2_name = Player("Player 2")
 cursor_color = (100, 100, 100) # darker grey
 color = (128, 128, 128) # grey
 
-def get_row_col_from_mouse(pos):
+def get_row_col_from_mouse(pos): # get row and column from mouse position, necessary for selecting pieces in class
     x, y = pos
     row = y // SQUARE_SIZE
     col = x // SQUARE_SIZE
     return row, col
 
 class SecondMenu:
-    
-    #default board color if users do not choose a color
+
+    # Default board color if users do not choose a color
     color = RED
     
     def start_game_menu(self):
         global player1_name, player2_name
-        pygame.init()
-        
+        # pygame.init()
         start_game_screen = pygame.display.set_mode([Width, Height])
-        pygame.display.set_caption("Start Game Menu")
 
         message = "Select Game Mode"
         credits1 = "Developed by Wander Cerda-Torres, Barry Lin,"
@@ -143,27 +143,32 @@ class SecondMenu:
                 
                 
             for event in pygame.event.get():
+                score_manager.load_scores()
+                
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if button_rect_3.collidepoint(event.pos):  # if exit button is clicked
-                        return  # exit start game  and return to menu
+                        return  # exit start game menu and return to menu
                     elif button_rect.collidepoint(event.pos):  # Start Game VS Player button clicked
                         player1_name.get_player_name()
-                        player1_name.add_user(player1_name.username)
+                        score_manager.add_user(player1_name.username)
                         player2_name.get_player_name()
-                        player2_name.add_user(player2_name.username)
+                        score_manager.add_user(player2_name.username)
                         self.start_game_vs_player(start_game_screen)
                     elif button_rect_2.collidepoint(event.pos):  # Start Game VS Computer button clicked
                         player1_name.get_player_name()
-                        player1_name.add_user(player1_name.username)
+                        score_manager.add_user(player1_name.username)
                         self.start_game_vs_computer(start_game_screen)
                         
+                score_manager.save_scores()
+                  
     def start_game_vs_player(self, screen): # start game against player
         run = True
         clock = pygame.time.Clock()
-        game = Game(screen, self.color)
+        game = Game(screen, self.color, player1_name.username, player2_name.username)
+        global score_manager, user_scores
 
         # Exit Button
         button_font = pygame.font.Font(None, 32)
@@ -178,6 +183,16 @@ class SecondMenu:
             if game.winner() != None:
                 print(game.winner())
                 run = False
+                if game.winner() == RED:
+                    player1_name.update_win()
+                    score_manager.update_scores(player1_name)
+                    player2_name.update_loss()
+                    score_manager.update_scores(player2_name)
+                elif game.winner() == WHITE:
+                    player2_name.update_win()
+                    score_manager.update_scores(player2_name)
+                    player1_name.update_loss()
+                    score_manager.update_scores(player1_name)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -195,7 +210,8 @@ class SecondMenu:
     def start_game_vs_computer(self, screen): # start game vs computer minimax algorithm
         run = True
         clock = pygame.time.Clock()
-        game = Game(screen, self.color)
+        game = Game(screen, self.color, player1_name.username, "Computer")
+        global score_manager, user_scores
 
         # Exit Button
         button_font = pygame.font.Font(None, 32)
@@ -208,12 +224,20 @@ class SecondMenu:
         while run:
             clock.tick(60)
             if game.turn == WHITE:
+                # prints computer thinking once 
+                print("Computer is Thinking")
                 value, new_board = minimax(game.get_board(), 4, WHITE, game)
                 game.ai_move(new_board) 
 
             if game.winner() != None:
                 print(game.winner())
                 run = False
+                if game.winner() == RED:
+                    player1_name.update_win()
+                    score_manager.update_scores(player1_name)
+                else:
+                    player1_name.update_loss()
+                    score_manager.update_scores(player1_name)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
