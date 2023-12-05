@@ -7,7 +7,7 @@ from constants import RED, WHITE, YELLOW, SQUARE_SIZE
 from Main_Board import Main_Board
 
 class Game: # game class to handle game logic, color represents board color chosen by user
-    def __init__(self, win, color):
+    def __init__(self, win, color, player1, player2):
         self.turn_start_time = pygame.time.get_ticks()
         self.turn_timeout = 5000  # 5 seconds per turn
         self.win = win
@@ -16,17 +16,57 @@ class Game: # game class to handle game logic, color represents board color chos
         self.board = Main_Board(self.color)
         self.turn = RED
         self.valid_moves = {}
+        self.font = pygame.font.Font(None, 36)  # Font for rendering text
+        self.text_color = WHITE  # Text color
+        self.text_urgent_color = RED  # Text color when time is running out
+        self.screen = pygame.display.set_mode((1000, 700))
+        self.player1 = player1
+        self.player2 = player2
         
     def check_turn_timeout(self):
         elapsed_time = pygame.time.get_ticks() - self.turn_start_time
-        print(f"Elapsed Time: {elapsed_time} ms")
+        text = f"Move Timer: {elapsed_time} ms"
+        text_surface = self.font.render(text, True, self.text_color)
+        if elapsed_time > 3000:
+            text_surface = self.font.render(text, True, self.text_urgent_color)
+        else:
+            text_surface = self.font.render(text, True, self.text_color)
+        # Render text
+        self.screen.blit(text_surface, (715, 50))
         if elapsed_time > self.turn_timeout:
             self.change_turn()
-            
-    def update(self): # update board to show current board
+
+    def display_turn(self): # display whose turn on screen
+        if self.turn == RED:
+            text = f"Current Turn: RED"
+        else:
+            text = f"Current Turn: WHITE"
+        text_surface = self.font.render(text, True, self.text_color)
+        self.screen.blit(text_surface, (715, 100))
+
+    def display_piece_count(self): # display piece count on screen
+        text = f"RED Pieces Left: {self.board.red_left}"
+        text2 = f"WHITE Pieces Left: {self.board.white_left}"
+        text_surface = self.font.render(text, True, self.text_color)
+        text_surface2 = self.font.render(text2, True, self.text_color)
+        self.screen.blit(text_surface, (715, 150))
+        self.screen.blit(text_surface2, (715, 200))
+
+    def display_player_names(self, player1, player2): # display player names on screen
+        text = f"Player 1: {player1}"
+        text2 = f"Player 2: {player2}"
+        text_surface = self.font.render(text, True, self.text_color)
+        text_surface2 = self.font.render(text2, True, self.text_color)
+        self.screen.blit(text_surface, (715, 350))
+        self.screen.blit(text_surface2, (715, 400))
+
+    def update(self): # update board to show current board and features
         self.board.draw(self.win)
         self.show_available_moves(self.valid_moves)
         self.check_turn_timeout()
+        self.display_turn()
+        self.display_piece_count()
+        self.display_player_names(self.player1, self.player2)
         pygame.display.update()
         
     def winner(self): # if winner has been found, return winner
@@ -46,7 +86,7 @@ class Game: # game class to handle game logic, color represents board color chos
                 self.valid_moves = self.board.get_valid_moves(piece)
                 return True
         except:
-            print("click_On_BOard")
+            print("Click on the board!")
             
         return False
 
