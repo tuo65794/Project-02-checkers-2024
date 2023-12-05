@@ -9,7 +9,7 @@ from Main_Board import Main_Board
 class Game: # game class to handle game logic, color represents board color chosen by user
     def __init__(self, win, color, player1, player2):
         self.turn_start_time = pygame.time.get_ticks()
-        self.turn_timeout = 5000  # 5 seconds per turn
+        self.turn_timeout = 5200  # 5.2 seconds per turn
         self.win = win
         self.color = color
         self.selected = None
@@ -25,7 +25,8 @@ class Game: # game class to handle game logic, color represents board color chos
         
     def check_turn_timeout(self):
         elapsed_time = pygame.time.get_ticks() - self.turn_start_time
-        text = f"Move Timer: {elapsed_time} ms"
+        elapsed_seconds = elapsed_time // 1000 
+        text = f"Move Timer: {elapsed_seconds} s"
         text_surface = self.font.render(text, True, self.text_color)
         if elapsed_time > 3000:
             text_surface = self.font.render(text, True, self.text_urgent_color)
