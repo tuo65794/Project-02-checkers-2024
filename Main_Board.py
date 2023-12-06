@@ -40,8 +40,8 @@ class Main_Board: # board class that handles board logic
     def get_piece(self, row, col): # return piece at given position
         try:
             return self.board[row][col]
-        except:
-            print("Click inside the Board")
+        except:# future problem can arise when clicking back to menu button
+            return None
 
     def create_board(self): # create board with pieces
         for row in range(ROWS):
