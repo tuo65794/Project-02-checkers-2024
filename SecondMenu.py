@@ -12,8 +12,9 @@ background_image = pygame.transform.scale(background_image, (Width, Height))
 screen = pygame.display.set_mode([Width, Height])
 pygame.init()
 
-player1_name = Player("Player 1")
-player2_name = Player("Player 2")
+player1_name = Player("Player 1", 0)
+player2_name = Player("Player 2", 0)
+score_manager = ScoreManager("user_data/user_data.json")
 cursor_color = (100, 100, 100) # darker grey
 color = (128, 128, 128) # grey
 
