@@ -86,8 +86,8 @@ class Game: # game class to handle game logic, color represents board color chos
                 self.selected = piece
                 self.valid_moves = self.board.get_valid_moves(piece)
                 return True
-        except:
-            print("Click on the board!")
+        except:# future problem can arise when clicking back to menu button
+            return None
             
         return False
 
