@@ -74,10 +74,10 @@ class Main_Board: # board class that handles board logic
                 else:
                     self.white_left -= 1
     
-    def winner(self): # check if winner
-        if self.red_left <= 0:
+    def winner(self): # check if winner has been found by checking if no pieces left or no moves left
+        if self.red_left <= 0 or self.no_moves(RED):
             return WHITE
-        elif self.white_left <= 0:
+        elif self.white_left <= 0 or self.no_moves(WHITE):
             return RED
         
         return None 
@@ -158,3 +158,13 @@ class Main_Board: # board class that handles board logic
             right += 1
         
         return moves
+    
+    def no_moves(self, color): # check if no moves left for a given player, returns True if valid moves list is empty
+        for row in range(ROWS):
+            for col in range(COLS):
+                piece = self.board[row][col]
+                if piece != 0 and piece.color == color:
+                    valid_moves = self.get_valid_moves(piece)
+                    if valid_moves:
+                        return False
+        return True
