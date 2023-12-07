@@ -1,6 +1,5 @@
 # game.py
-# game file that holds game logic, game class has Main_Board object
-# code from reference repo: https://github.com/techwithtim/Python-Checkers-AI
+# game file that holds game logic and game class
 
 import pygame
 from constants import RED, WHITE, YELLOW, SQUARE_SIZE

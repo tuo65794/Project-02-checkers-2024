@@ -1,5 +1,6 @@
 # constants.py
 # used for color customization and more (not all may be used)
+
 import pygame
 
 BLACK = (0, 0, 0)

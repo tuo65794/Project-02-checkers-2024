@@ -1,5 +1,5 @@
-
-# code from reference repo: https://github.com/techwithtim/Python-Checkers-AI
+# Pieces.py
+# Holds the Piece class which is responsible for managing the pieces
 
 from constants import SQUARE_SIZE, GREY, KING
 import pygame

@@ -1,5 +1,5 @@
 # computer.py
-# minimax algorithm for AI to play checkers. Written by https://github.com/techwithtim and modified by us.
+# minimax algorithm for AI to play checkers. Written by https://github.com/techwithtim
 # code from reference repo: https://github.com/techwithtim/Python-Checkers-AI
 
 from copy import deepcopy

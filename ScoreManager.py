@@ -1,3 +1,6 @@
+# ScoreManager.py
+# Holds the ScoreManager class which is responsible for managing the scores of the players
+
 import json
 from Player import Player
 

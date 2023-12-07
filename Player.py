@@ -1,3 +1,6 @@
+# Player.py
+# Holds the Player class which is responsible for managing the players
+
 import pygame
 Width, Height = 1000, 700
 background_image = pygame.image.load("checkers.jpg")

@@ -22,7 +22,7 @@ SONG_END = pygame.USEREVENT + 1
 def music_loop(): # function to loop through music tracks
     global current_track
     pygame.mixer.music.load(tracks[current_track])
-    pygame.mixer.music.set_volume(0.1) # 0.1-1.0, can change accordingly
+    pygame.mixer.music.set_volume(0.1) # 0.1-1.0
     pygame.mixer.music.play()
     current_track = (current_track + 1) % len(tracks)
 
@@ -30,7 +30,7 @@ music_loop()
 pygame.mixer.music.set_endevent(SONG_END) # create event for song ending/looping
 music_playing = True # boolean to check if music is playing or not
 
-# title for display (can remove credits if we do not want them)
+# title for display
 game_title = "Checkers+"
 message = "Checkers with a twist! For all ages and skill levels!"
 credits1 = "Developed by Wander Cerda-Torres, Barry Lin,"
@@ -64,7 +64,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                buttons = menu_buttons() # create array for buttons # NEED TO ADD PVC BUTTON OR MAKE PVP BUTTON COMBINED INTO BOTH
+                buttons = menu_buttons()
                 if buttons[0].collidepoint(event.pos): # If Start Game button is clicked, show the second menu
                    second_menu_instance.start_game_menu()
                 if buttons[2].collidepoint(event.pos): # if mouse is clicked on tutorial button
@@ -85,7 +85,6 @@ def main():
         screen.blit(credits_text1, credits_rect1)
         screen.blit(credits_text2, credits_rect2)
         
-        # call PvP button function from menu.py
         menu_buttons()
         pygame.display.flip()
 
@@ -320,7 +319,7 @@ def tutorial(): # tutorial prompt
     tutorial_text = tutorial_font.render("When the game starts, you will be asked to enter the names of the players (or player, if playing against the computer).", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 490))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("Doing this will allow your name(s) and score to be updated on your local leaderboard. 50 points for a win, and", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("Doing this will allow your name(s) and score(s) to be updated on your local leaderboard. 50 points for a win, and", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 515))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
     tutorial_text = tutorial_font.render("-50 points for a loss. By now, you should have a basic understanding of what Checkers+ has to offer. Go give it a try!", True, (255, 255, 255))
@@ -329,10 +328,11 @@ def tutorial(): # tutorial prompt
     tutorial_text = tutorial_font.render("If you ever need to view this tutorial again, you can access it from the main menu. Have fun!", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 565))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("Note - Player VS Computer is currently under development. In some situations, the computer will not make the right", True, (255, 255, 255))
+    # Developer note
+    tutorial_text = tutorial_font.render("Note - Currently there is no button to exit a checkers game early. If you would like to quit,", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 590))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
-    tutorial_text = tutorial_font.render("move, leaving your game stuck. Player VS player is recommended!", True, (255, 255, 255))
+    tutorial_text = tutorial_font.render("simply close the window by clicking the X in the top right corner. This shold return you to the main menu.", True, (255, 255, 255))
     tutorial_rect = tutorial_text.get_rect(center=(Width // 2, 615))
     tutorial_screen.blit(tutorial_text, tutorial_rect)
 

@@ -1,3 +1,6 @@
+# Main_Board.py
+# Holds the Main_Board class which is responsible for managing the board and the pieces
+
 import pygame
 from constants import BLACK, ROWS, RED, SQUARE_SIZE, COLS, WHITE
 from pieces import Piece
