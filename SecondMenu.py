@@ -10,6 +10,9 @@ from ScoreManager import ScoreManager
 from constants import RED, SQUARE_SIZE, WHITE
 from game import Game
 from computer import minimax
+from MusicClass import BackgroundMusic
+from SharedObjects import background_music
+
 
 Width, Height = 1000, 700
 background_image = pygame.image.load("checkers.jpg")
@@ -42,6 +45,11 @@ class SecondMenu:
         """
         The start game menu function displays the second menu of the game, which allows the user to choose between playing against another player or against the computer.
         """
+        tracks = ["music/Track1.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3", "music/Track5.mp3", "music/Track6.mp3", "music/Track7.mp3", "music/Track8.mp3"]
+        background_music = BackgroundMusic(tracks)
+        background_music.start_music_loop()
+        
+        
         global player1_name, player2_name
         start_game_screen = pygame.display.set_mode([Width, Height])
 
@@ -174,6 +182,8 @@ class SecondMenu:
                         score_manager.save_scores()
                         return
                 # score_manager.save_scores() # now inside elif so scores are updated before returning to main
+                    elif event.type == self.background_music.SONG_END:
+                        self.background_music.handle_event(event)
                   
     def start_game_vs_player(self, screen):
         """
