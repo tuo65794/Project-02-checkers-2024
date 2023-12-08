@@ -17,6 +17,9 @@ class Player:
     The Player class is responsible for managing the players, and contains functions to initialize a player, update the win and loss, and get the player name.
     """
     def __init__(self, username, score):
+        """
+        The init function initializes the player object with a username and score.
+        """
         self.username = username
         self.score = 0
         self.win = 0
