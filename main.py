@@ -18,7 +18,7 @@ screen = pygame.display.set_mode([Width, Height])
 pygame.display.set_caption("Checkers+")
 
 # background music
-tracks = ["music/Track5.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3", "music/Track1.mp3", "music/Track6.mp3", "music/Track7.mp3", "music/Track8.mp3"] # can add more or delete tracks if we do not like them
+tracks = ["music/Track1.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3", "music/Track5.mp3", "music/Track6.mp3", "music/Track7.mp3", "music/Track8.mp3"] # can add more or delete tracks if we do not like them
 current_track = 0
 SONG_END = pygame.USEREVENT + 1
 def music_loop():
@@ -33,7 +33,6 @@ def music_loop():
 
 music_loop()
 pygame.mixer.music.set_endevent(SONG_END) # create event for song ending/looping
-music_playing = True # boolean to check if music is playing or not
 
 # title for display
 game_title = "Checkers+"
@@ -369,12 +368,15 @@ def tutorial():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
+            elif event.type == SONG_END:
+                music_loop()
                 
 def settings():
     """
     The settings function displays the settings screen. It displays the music button that allows the user to stop and play the music. It allows the user to exit 
     the settings after clicking the exit button.
     """
+    music_playing = True
     # Used for buttons w/ images
     icon_size = (45, 45)  # Adjust the size of the icon as needed
     button_height = 50
@@ -431,6 +433,8 @@ def settings():
                     else:
                         music_loop()  # Start the music from next song in tracklist
                         music_playing = True
+            elif event.type == SONG_END and music_playing == True:
+                music_loop()
 
 def show_leaderboard():
     """
@@ -484,6 +488,8 @@ def show_leaderboard():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
+            elif event.type == SONG_END:
+                music_loop()
 
 def board_customization(): 
     """
@@ -546,5 +552,7 @@ def board_customization():
                     second_menu_instance.color = YELLOW
                 if green_square_rect.collidepoint(event.pos): # make board green
                     second_menu_instance.color = GREEN
+            elif event.type == SONG_END:
+                music_loop()
 
 main()
