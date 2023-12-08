@@ -1,6 +1,8 @@
-# main.py
-# holds menu operations for the game including sound, settings, leaderboard, tutorial, and board customization
+"""
+Main.py
+The main file holds menu operations for the game including sound, settings, leaderboard, tutorial, and board customization.
 
+"""
 import pygame
 from SecondMenu import SecondMenu
 from constants import BLUE, YELLOW, RED, GREEN
@@ -19,7 +21,10 @@ pygame.display.set_caption("Checkers+")
 tracks = ["music/Track5.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3", "music/Track1.mp3", "music/Track6.mp3", "music/Track7.mp3", "music/Track8.mp3"] # can add more or delete tracks if we do not like them
 current_track = 0
 SONG_END = pygame.USEREVENT + 1
-def music_loop(): # function to loop through music tracks
+def music_loop():
+    """
+    The music loop function loops through the music tracks in the tracks list.
+    """
     global current_track
     pygame.mixer.music.load(tracks[current_track])
     pygame.mixer.music.set_volume(0.1) # 0.1-1.0
@@ -55,8 +60,12 @@ credits_rect2 = credits_text2.get_rect(center=(Width // 2, 670))
 
 second_menu_instance = SecondMenu()
 
-# run until the user closes application
 def main():
+    """
+    The main function is the main menu of the game. It displays the title, message, and credits, and holds user interaction with buttons. 
+    If a user hovers over a button, the button will change color to indicate that it has been clicked. If the user clicks on a button,
+    the corresponding function will be called.
+    """
     running = True
     while running:
         # did the user click the window close button?
@@ -91,8 +100,10 @@ def main():
     # done! time to quit
     pygame.quit()
 
-def menu_buttons(): # function to create menu buttons
-
+def menu_buttons():
+    """
+    The menu buttons function creates the buttons on the main menu. It returns the button rectangles for each button so that they can be used in the main function.
+    """
     # Used for buttons w/ images
     icon_size = (45, 45)  # Adjust the size of the icon as needed
     button_height = 50
@@ -259,7 +270,12 @@ def menu_buttons(): # function to create menu buttons
 
     return button_rect, button_rect_2, button_rect_3, button_rect_4, button_rect_5
 
-def tutorial(): # tutorial prompt
+def tutorial(): 
+    """
+    The tutorial function displays the tutorial screen. It displays the tutorial text and image, and allows the user to exit the tutorial after clicking the exit button.
+    The tutorial informs the user on how to use the application and what features are available to them.
+    """
+    
     # load image used in tutorial
     checkers_icon = pygame.image.load('pics/checkersguy_icon.png')
     tutorial_screen = pygame.display.set_mode([Width, Height])
@@ -354,7 +370,11 @@ def tutorial(): # tutorial prompt
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
                 
-def settings(): # settings menu
+def settings():
+    """
+    The settings function displays the settings screen. It displays the music button that allows the user to stop and play the music. It allows the user to exit 
+    the settings after clicking the exit button.
+    """
     # Used for buttons w/ images
     icon_size = (45, 45)  # Adjust the size of the icon as needed
     button_height = 50
@@ -413,7 +433,10 @@ def settings(): # settings menu
                         music_playing = True
 
 def show_leaderboard():
-    # Set up the new window for the leaderboard
+    """
+    The show leaderboard function displays the leaderboard screen. It displays the top ten players and their scores. It allows the user to exit the leaderboard after clicking the
+    exit button.
+    """
     leaderboard_screen = pygame.display.set_mode((1000, 700))
     screen.fill((128, 128, 128))
     # Leaderboard header
@@ -462,7 +485,11 @@ def show_leaderboard():
                 if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
                     return  # exit tutorial and return to menu
 
-def board_customization(): # board customization menu, allows user to change color of board to either red, blue, yellow, or green
+def board_customization(): 
+    """
+    The board customization function displays the board customization screen. It allows the user to change the color of the board to red, blue, yellow, or green. 
+    It allows the user to exit the board customization after clicking the exit button.
+    """
     board_customization_screen = pygame.display.set_mode([Width, Height])
     background_image = pygame.image.load("checkers.jpg")
     background_image = pygame.transform.scale(background_image, (Width, Height))

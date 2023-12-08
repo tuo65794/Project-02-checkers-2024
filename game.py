@@ -1,12 +1,22 @@
-# game.py
-# game file that holds game logic and game class
-
+"""
+Game.py
+The game file holds the game logic and game class.
+"""
 import pygame
 from constants import RED, WHITE, YELLOW, SQUARE_SIZE
 from Main_Board import Main_Board
 
-class Game: # game class to handle game logic, color represents board color chosen by user
+class Game: 
+    """
+    The Game class is responsible for managing the game logic, and contains functions to initialize the game, check the turn timeout, display the turn,
+    display the piece count, display the player names, update the board, check for a winner, select a piece, move a piece, show available moves, change the turn,
+    get the board, and move an AI piece.
+    """
     def __init__(self, win, color, player1, player2):
+        """
+        The init function initializes the Game class with a window, color, player1, and player2, and sets the turn start time and turn timeout. The text color is set to white,
+        and the urgent text color is set to red. The screen is set to the window size, and the player names are set to player1 and player2.
+        """
         self.turn_start_time = pygame.time.get_ticks()
         self.turn_timeout = 5200  # 5.2 seconds per turn
         self.win = win
@@ -23,6 +33,9 @@ class Game: # game class to handle game logic, color represents board color chos
         self.player2 = player2
         
     def check_turn_timeout(self):
+        """
+        The check turn timeout function checks the turn timeout and displays the move timer on the screen. If the time is running out, the text color is set to red.
+        """
         elapsed_time = pygame.time.get_ticks() - self.turn_start_time
         elapsed_seconds = elapsed_time // 1000 
         text = f"Move Timer: {elapsed_seconds} s"
@@ -36,7 +49,10 @@ class Game: # game class to handle game logic, color represents board color chos
         if elapsed_time > self.turn_timeout:
             self.change_turn()
 
-    def display_turn(self): # display whose turn on screen
+    def display_turn(self):
+        """
+        The display turn function displays the current turn on the screen.
+        """
         if self.turn == RED:
             text = f"Current Turn: RED"
         else:
@@ -44,7 +60,10 @@ class Game: # game class to handle game logic, color represents board color chos
         text_surface = self.font.render(text, True, self.text_color)
         self.screen.blit(text_surface, (715, 100))
 
-    def display_piece_count(self): # display piece count on screen
+    def display_piece_count(self): 
+        """
+        The display piece count function displays the piece count on the screen.
+        """
         text = f"RED Pieces Left: {self.board.red_left}"
         text2 = f"WHITE Pieces Left: {self.board.white_left}"
         text_surface = self.font.render(text, True, self.text_color)
@@ -52,7 +71,10 @@ class Game: # game class to handle game logic, color represents board color chos
         self.screen.blit(text_surface, (715, 150))
         self.screen.blit(text_surface2, (715, 200))
 
-    def display_player_names(self, player1, player2): # display player names on screen
+    def display_player_names(self, player1, player2): 
+        """
+        The display player names function displays the player names on the screen.
+        """
         text = f"Player 1: {player1}"
         text2 = f"Player 2: {player2}"
         text_surface = self.font.render(text, True, self.text_color)
@@ -60,7 +82,10 @@ class Game: # game class to handle game logic, color represents board color chos
         self.screen.blit(text_surface, (715, 350))
         self.screen.blit(text_surface2, (715, 400))
 
-    def update(self): # update board to show current board and features
+    def update(self): 
+        """
+        The update function updates the board to show the current board and features.
+        """
         self.board.draw(self.win)
         self.show_available_moves(self.valid_moves)
         self.check_turn_timeout()
@@ -69,28 +94,37 @@ class Game: # game class to handle game logic, color represents board color chos
         self.display_player_names(self.player1, self.player2)
         pygame.display.update()
         
-    def winner(self): # if winner has been found, return winner
+    def winner(self): 
+        """
+        The winner function checks if a winner has been found by calling the board winner function and returns the winner if one has been found.
+        """
         return self.board.winner()
 
-    def select(self, row, col): # select piece to move and as a result show available moves
+    def select(self, row, col): 
+        """
+        The select function selects a piece and shows the available moves for the piece.
+        """
         if self.selected:
             result = self.move(row, col)
             if not result:
                 self.selected = None
                 self.select(row, col)
         
-        try:# this try catch must be here when user click outside board
+        try:
             piece = self.board.get_piece(row, col)
             if piece != 0 and piece.color == self.turn:
                 self.selected = piece
                 self.valid_moves = self.board.get_valid_moves(piece)
                 return True
-        except:# future problem can arise when clicking back to menu button
+        except:
             return None
             
         return False
 
     def move(self, row, col):
+        """
+        The move function moves a piece to a given row and column and changes the turn.
+        """
         piece = self.board.get_piece(row, col)
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
             self.board.move(self.selected, row, col)
@@ -103,12 +137,18 @@ class Game: # game class to handle game logic, color represents board color chos
 
         return False
 
-    def show_available_moves(self, moves): # show available moves for selected piece
+    def show_available_moves(self, moves): 
+        """
+        The show available moves function shows the available moves for the selected piece.
+        """
         for move in moves:
             row, col = move
             pygame.draw.circle(self.win, YELLOW, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 15)
 
-    def change_turn(self): # change turn to other player/color
+    def change_turn(self): 
+        """
+        The change turn function changes the turn to the other player/color and resets the turn timer.
+        """
         self.valid_moves = {}
         self.turn_start_time = pygame.time.get_ticks()  # Reset the turn timer
         if self.turn == RED:
@@ -116,9 +156,15 @@ class Game: # game class to handle game logic, color represents board color chos
         else:
             self.turn = RED
 
-    def get_board(self): # return current board
+    def get_board(self): 
+        """
+        The get board function returns the current board.
+        """
         return self.board
 
-    def ai_move(self, board): # move AI piece
+    def ai_move(self, board): 
+        """
+        The ai move function moves the AI piece in a player vs computer game.
+        """
         self.board = board
         self.change_turn()

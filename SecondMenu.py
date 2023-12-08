@@ -1,6 +1,8 @@
-# SecondMenu.py
-# holds operations for start game menu and creates game objects
-
+"""
+SecondMenu.py
+The SecondMenu file and class powers the second menu of the game, which allows the user to choose between playing against another player or against the computer.
+The class also creates an object of the game class to create the game the users plays.
+"""
 import pygame
 from Player import Player
 from Player import user_scores
@@ -21,20 +23,26 @@ score_manager = ScoreManager("user_data/user_data.json")
 cursor_color = (100, 100, 100) # darker grey
 color = (128, 128, 128) # grey
 
-def get_row_col_from_mouse(pos): # get row and column from mouse position, necessary for selecting pieces in class
+def get_row_col_from_mouse(pos):
+    """
+    This function gets the row and column of the mouse position. This is necessary for selecting pieces in the class.
+    """
     x, y = pos
     row = y // SQUARE_SIZE
     col = x // SQUARE_SIZE
     return row, col
 
 class SecondMenu:
-
-    # Default board color if users do not choose a color
+    """
+    The SecondMenu class consists of a String color, which represents the color of the board chosen by the user.
+    The class also has three functions, start_game_menu, start_game_vs_player, and start_game_vs_computer.
+    """
     color = RED
-    
     def start_game_menu(self):
+        """
+        The start game menu function displays the second menu of the game, which allows the user to choose between playing against another player or against the computer.
+        """
         global player1_name, player2_name
-        # pygame.init()
         start_game_screen = pygame.display.set_mode([Width, Height])
 
         message = "Select Game Mode"
@@ -167,7 +175,10 @@ class SecondMenu:
                         return
                 # score_manager.save_scores() # now inside elif so scores are updated before returning to main
                   
-    def start_game_vs_player(self, screen): # start game against player
+    def start_game_vs_player(self, screen):
+        """
+        The start game vs player function starts the game against another player by creating an object of the game class and passing the screen, color, and player names.
+        """
         run = True
         clock = pygame.time.Clock()
         game = Game(screen, self.color, player1_name.username, player2_name.username)
@@ -208,7 +219,10 @@ class SecondMenu:
 
             game.update()
 
-    def start_game_vs_computer(self, screen): # start game vs computer minimax algorithm
+    def start_game_vs_computer(self, screen): 
+        """
+        The start game vs computer function starts the game against the computer by creating an object of the game class and passing the screen, color, and player name.
+        """
         run = True
         clock = pygame.time.Clock()
         game = Game(screen, self.color, player1_name.username, "Computer")

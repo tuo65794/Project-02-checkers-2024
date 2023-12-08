@@ -1,12 +1,19 @@
-# computer.py
-# minimax algorithm for AI to play checkers. Written by https://github.com/techwithtim
-# code from reference repo: https://github.com/techwithtim/Python-Checkers-AI
+"""
+Computer.py
+The Computer File holds the Computer class which is responsible for managing the computer player.
+Minimax algorithm for AI to play checkers. Written by https://github.com/techwithtim
+Code from reference repo: https://github.com/techwithtim/Python-Checkers-AI
+"""
 
 from copy import deepcopy
 import pygame
 from constants import RED, WHITE
 
-def minimax(position, depth, max_player, game): # minimax algorithm for AI to play checkers
+def minimax(position, depth, max_player, game): 
+    """
+    The minimax function is the minimax algorithm for AI to play checkers, and has parameters position, depth, max_player, and game parameters.
+    The function returns the best move for the computer to make.
+    """
     if depth == 0 or position.winner() != None:
         return position.evaluate(), position
         #prints computer thinking until made a move
@@ -33,13 +40,19 @@ def minimax(position, depth, max_player, game): # minimax algorithm for AI to pl
         return minEval, best_move
 
 def simulate_move(piece, move, board, game, skip):
+    """
+    The simulate move function simulates a move for the AI to make and returns the board.
+    """
     board.move(piece, move[0], move[1])
     if skip:
         board.remove(skip)
 
     return board
 
-def get_all_moves(board, color, game): # get all possible moves for a given color
+def get_all_moves(board, color, game): 
+    """
+    The get all moves function gets all possible moves for a given color and returns the moves.
+    """
     moves = []
     for piece in board.get_all_pieces(color):
         valid_moves = board.get_valid_moves(piece)
@@ -52,7 +65,10 @@ def get_all_moves(board, color, game): # get all possible moves for a given colo
     
     return moves
 
-def draw_moves(game, board, piece): # draw all possible moves for a given piece
+def draw_moves(game, board, piece): 
+    """
+    The draw moves function draws all possible moves for a given piece.
+    """
     valid_moves = board.get_valid_moves(piece)
     board.draw(game.win)
     pygame.draw.circle(game.win, (0,255,0), (piece.x, piece.y), 50, 5)
