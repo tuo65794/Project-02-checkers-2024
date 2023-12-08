@@ -30,3 +30,6 @@ simply run the application from inside the folder.
 
 # How to contribute
 Follow this project board to know the latest status of the project: https://github.com/orgs/cis3296f23/projects/116
+
+# Link to Documentation
+Click here to view the full documentation for Checkers+: https://github.com/cis3296f23/Project-02-checkers/tree/main/html_documentation
