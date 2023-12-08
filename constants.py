@@ -1,5 +1,8 @@
-# constants.py
-# used for color customization and more (not all may be used)
+"""
+Constants.py
+The constants file holds the constants used in the game.
+"""
+
 import pygame
 
 BLACK = (0, 0, 0)

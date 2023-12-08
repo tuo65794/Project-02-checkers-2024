@@ -1,3 +1,8 @@
+"""
+SecondMenu.py
+The SecondMenu file and class powers the second menu of the game, which allows the user to choose between playing against another player or against the computer.
+The class also creates an object of the game class to create the game the users plays.
+"""
 import pygame
 from Player import Player
 from Player import user_scores
@@ -18,20 +23,26 @@ score_manager = ScoreManager("user_data/user_data.json")
 cursor_color = (100, 100, 100) # darker grey
 color = (128, 128, 128) # grey
 
-def get_row_col_from_mouse(pos): # get row and column from mouse position, necessary for selecting pieces in class
+def get_row_col_from_mouse(pos):
+    """
+    This function gets the row and column of the mouse position. This is necessary for selecting pieces in the class.
+    """
     x, y = pos
     row = y // SQUARE_SIZE
     col = x // SQUARE_SIZE
     return row, col
 
 class SecondMenu:
-
-    # Default board color if users do not choose a color
+    """
+    The SecondMenu class consists of a String color, which represents the color of the board chosen by the user.
+    The class also has three functions, start_game_menu, start_game_vs_player, and start_game_vs_computer.
+    """
     color = RED
-    
     def start_game_menu(self):
+        """
+        The start game menu function displays the second menu of the game, which allows the user to choose between playing against another player or against the computer.
+        """
         global player1_name, player2_name
-        # pygame.init()
         start_game_screen = pygame.display.set_mode([Width, Height])
 
         message = "Select Game Mode"
@@ -107,9 +118,6 @@ class SecondMenu:
         pygame.display.flip()
         mouse = pygame.mouse.get_pos()
     
-    
-            
-        
         while True:
             mouse = pygame.mouse.get_pos()
             if button_rect_3.collidepoint(mouse):
@@ -140,9 +148,8 @@ class SecondMenu:
                 start_game_screen.blit(button_text1, button_text_rect1)
                 
                 pygame.display.update()
-                
-                
-                
+                       
+
             for event in pygame.event.get():
                 score_manager.load_scores()
                 
@@ -158,14 +165,20 @@ class SecondMenu:
                         player2_name.get_player_name()
                         score_manager.add_user(player2_name.username)
                         self.start_game_vs_player(start_game_screen)
+                        score_manager.save_scores()
+                        return
                     elif button_rect_2.collidepoint(event.pos):  # Start Game VS Computer button clicked
                         player1_name.get_player_name()
                         score_manager.add_user(player1_name.username)
                         self.start_game_vs_computer(start_game_screen)
-                        
-                score_manager.save_scores()
+                        score_manager.save_scores()
+                        return
+                # score_manager.save_scores() # now inside elif so scores are updated before returning to main
                   
-    def start_game_vs_player(self, screen): # start game against player
+    def start_game_vs_player(self, screen):
+        """
+        The start game vs player function starts the game against another player by creating an object of the game class and passing the screen, color, and player names.
+        """
         run = True
         clock = pygame.time.Clock()
         game = Game(screen, self.color, player1_name.username, player2_name.username)
@@ -206,9 +219,10 @@ class SecondMenu:
 
             game.update()
 
-        self.start_game_menu()
-
-    def start_game_vs_computer(self, screen): # start game vs computer minimax algorithm
+    def start_game_vs_computer(self, screen): 
+        """
+        The start game vs computer function starts the game against the computer by creating an object of the game class and passing the screen, color, and player name.
+        """
         run = True
         clock = pygame.time.Clock()
         game = Game(screen, self.color, player1_name.username, "Computer")
@@ -248,15 +262,3 @@ class SecondMenu:
                     game.select(row, col)
 
             game.update()
-    
-        self.start_game_menu()
-    
-
-    # Display the player's name at the right bottom corner
-    #player_name_font = pygame.font.Font(None, 24)
-    #player_name_text = player_name_font.render(player1_name, True, (255, 255, 255))  # White text color
-    #player_name_rect = player_name_text.get_rect(bottomright=(Width - 10, Height - 10))  # Adjust position as needed
-    
-    # Display player name in the right bottom corner
-    #pygame.draw.rect(screen, (0, 0, 255), player_name_rect)  # Blue box
-    #screen.blit(player_name_text, player_name_rect)

@@ -1,3 +1,8 @@
+"""
+Player.py
+The Player File holds the Player class which is responsible for managing the players. This file holds a global user scores hashmap.
+"""
+
 import pygame
 Width, Height = 1000, 700
 background_image = pygame.image.load("checkers.jpg")
@@ -8,14 +13,19 @@ screen = pygame.display.set_mode([Width, Height])
 user_scores = {}
 
 class Player:
-    
+    """
+    The Player class is responsible for managing the players, and contains functions to initialize a player, update the win and loss, and get the player name.
+    """
     def __init__(self, username, score):
         self.username = username
         self.score = 0
         self.win = 0
         
-    # Function to draw the text input box on the screen
+    
     def draw_text_input(self, player_name, error_msg="name error"):
+        """
+        The draw text input function draws the text input box on the screen.
+        """
         font = pygame.font.Font(None, 32)
 
         # Render the background box
@@ -34,8 +44,10 @@ class Player:
             screen.blit(error_text, error_rect)
 
 
-    # Function to ask player's name
     def get_player_name(self):
+        """
+        The get player name function gets the player name from the user and returns the player name.
+        """
         input_active = True
         player_name = ""
         error_msg = ""
@@ -71,7 +83,13 @@ class Player:
         return player_name
         
     def update_win(self):
+        """
+        The update win function updates the win for a player by setting the win attribute to one.
+        """
         self.win = 1
 
     def update_loss(self):
+        """
+        The update loss function updates the loss for a player by setting the win attribute to zero.
+        """
         self.win = 0

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module game</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">game</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cjtsta%5Conedrive%5Cdesktop%5Ccode%5Csoftware%20design%5Cgithub%20basics%20assignment%5Cproject-02-checkers%5Cgame.py">c:\users\jtsta\onedrive\desktop\code\software design\github basics assignment\project-02-checkers\game.py</a></td></tr></table>
+    <p><span class="code"><a href="#Game">Game</a>.py<br>
+The&nbsp;game&nbsp;file&nbsp;holds&nbsp;the&nbsp;game&nbsp;logic&nbsp;and&nbsp;game&nbsp;class.</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="pygame.html">pygame</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="game.html#Game">Game</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Game">class <strong>Game</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Game">Game</a>(win,&nbsp;color,&nbsp;player1,&nbsp;player2)<br>
+&nbsp;<br>
+The&nbsp;<a href="#Game">Game</a>&nbsp;class&nbsp;is&nbsp;responsible&nbsp;for&nbsp;managing&nbsp;the&nbsp;game&nbsp;logic,&nbsp;and&nbsp;contains&nbsp;functions&nbsp;to&nbsp;initialize&nbsp;the&nbsp;game,&nbsp;check&nbsp;the&nbsp;turn&nbsp;timeout,&nbsp;display&nbsp;the&nbsp;turn,<br>
+display&nbsp;the&nbsp;piece&nbsp;count,&nbsp;display&nbsp;the&nbsp;player&nbsp;names,&nbsp;update&nbsp;the&nbsp;board,&nbsp;check&nbsp;for&nbsp;a&nbsp;winner,&nbsp;select&nbsp;a&nbsp;piece,&nbsp;move&nbsp;a&nbsp;piece,&nbsp;show&nbsp;available&nbsp;moves,&nbsp;change&nbsp;the&nbsp;turn,<br>
+get&nbsp;the&nbsp;board,&nbsp;and&nbsp;move&nbsp;an&nbsp;AI&nbsp;piece.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="Game-__init__"><strong>__init__</strong></a>(self, win, color, player1, player2)</dt><dd><span class="code">The&nbsp;init&nbsp;function&nbsp;initializes&nbsp;the&nbsp;<a href="#Game">Game</a>&nbsp;class&nbsp;with&nbsp;a&nbsp;window,&nbsp;color,&nbsp;player1,&nbsp;and&nbsp;player2,&nbsp;and&nbsp;sets&nbsp;the&nbsp;turn&nbsp;start&nbsp;time&nbsp;and&nbsp;turn&nbsp;timeout.&nbsp;The&nbsp;text&nbsp;color&nbsp;is&nbsp;set&nbsp;to&nbsp;white,<br>
+and&nbsp;the&nbsp;urgent&nbsp;text&nbsp;color&nbsp;is&nbsp;set&nbsp;to&nbsp;red.&nbsp;The&nbsp;screen&nbsp;is&nbsp;set&nbsp;to&nbsp;the&nbsp;window&nbsp;size,&nbsp;and&nbsp;the&nbsp;player&nbsp;names&nbsp;are&nbsp;set&nbsp;to&nbsp;player1&nbsp;and&nbsp;player2.</span></dd></dl>
+
+<dl><dt><a name="Game-ai_move"><strong>ai_move</strong></a>(self, board)</dt><dd><span class="code">The&nbsp;ai&nbsp;move&nbsp;function&nbsp;moves&nbsp;the&nbsp;AI&nbsp;piece&nbsp;in&nbsp;a&nbsp;player&nbsp;vs&nbsp;computer&nbsp;game.</span></dd></dl>
+
+<dl><dt><a name="Game-change_turn"><strong>change_turn</strong></a>(self)</dt><dd><span class="code">The&nbsp;change&nbsp;turn&nbsp;function&nbsp;changes&nbsp;the&nbsp;turn&nbsp;to&nbsp;the&nbsp;other&nbsp;player/color&nbsp;and&nbsp;resets&nbsp;the&nbsp;turn&nbsp;timer.</span></dd></dl>
+
+<dl><dt><a name="Game-check_turn_timeout"><strong>check_turn_timeout</strong></a>(self)</dt><dd><span class="code">The&nbsp;check&nbsp;turn&nbsp;timeout&nbsp;function&nbsp;checks&nbsp;the&nbsp;turn&nbsp;timeout&nbsp;and&nbsp;displays&nbsp;the&nbsp;move&nbsp;timer&nbsp;on&nbsp;the&nbsp;screen.&nbsp;If&nbsp;the&nbsp;time&nbsp;is&nbsp;running&nbsp;out,&nbsp;the&nbsp;text&nbsp;color&nbsp;is&nbsp;set&nbsp;to&nbsp;red.</span></dd></dl>
+
+<dl><dt><a name="Game-display_piece_count"><strong>display_piece_count</strong></a>(self)</dt><dd><span class="code">The&nbsp;display&nbsp;piece&nbsp;count&nbsp;function&nbsp;displays&nbsp;the&nbsp;piece&nbsp;count&nbsp;on&nbsp;the&nbsp;screen.</span></dd></dl>
+
+<dl><dt><a name="Game-display_player_names"><strong>display_player_names</strong></a>(self, player1, player2)</dt><dd><span class="code">The&nbsp;display&nbsp;player&nbsp;names&nbsp;function&nbsp;displays&nbsp;the&nbsp;player&nbsp;names&nbsp;on&nbsp;the&nbsp;screen.</span></dd></dl>
+
+<dl><dt><a name="Game-display_turn"><strong>display_turn</strong></a>(self)</dt><dd><span class="code">The&nbsp;display&nbsp;turn&nbsp;function&nbsp;displays&nbsp;the&nbsp;current&nbsp;turn&nbsp;on&nbsp;the&nbsp;screen.</span></dd></dl>
+
+<dl><dt><a name="Game-get_board"><strong>get_board</strong></a>(self)</dt><dd><span class="code">The&nbsp;get&nbsp;board&nbsp;function&nbsp;returns&nbsp;the&nbsp;current&nbsp;board.</span></dd></dl>
+
+<dl><dt><a name="Game-move"><strong>move</strong></a>(self, row, col)</dt><dd><span class="code">The&nbsp;move&nbsp;function&nbsp;moves&nbsp;a&nbsp;piece&nbsp;to&nbsp;a&nbsp;given&nbsp;row&nbsp;and&nbsp;column&nbsp;and&nbsp;changes&nbsp;the&nbsp;turn.</span></dd></dl>
+
+<dl><dt><a name="Game-select"><strong>select</strong></a>(self, row, col)</dt><dd><span class="code">The&nbsp;select&nbsp;function&nbsp;selects&nbsp;a&nbsp;piece&nbsp;and&nbsp;shows&nbsp;the&nbsp;available&nbsp;moves&nbsp;for&nbsp;the&nbsp;piece.</span></dd></dl>
+
+<dl><dt><a name="Game-show_available_moves"><strong>show_available_moves</strong></a>(self, moves)</dt><dd><span class="code">The&nbsp;show&nbsp;available&nbsp;moves&nbsp;function&nbsp;shows&nbsp;the&nbsp;available&nbsp;moves&nbsp;for&nbsp;the&nbsp;selected&nbsp;piece.</span></dd></dl>
+
+<dl><dt><a name="Game-update"><strong>update</strong></a>(self)</dt><dd><span class="code">The&nbsp;update&nbsp;function&nbsp;updates&nbsp;the&nbsp;board&nbsp;to&nbsp;show&nbsp;the&nbsp;current&nbsp;board&nbsp;and&nbsp;features.</span></dd></dl>
+
+<dl><dt><a name="Game-winner"><strong>winner</strong></a>(self)</dt><dd><span class="code">The&nbsp;winner&nbsp;function&nbsp;checks&nbsp;if&nbsp;a&nbsp;winner&nbsp;has&nbsp;been&nbsp;found&nbsp;by&nbsp;calling&nbsp;the&nbsp;board&nbsp;winner&nbsp;function&nbsp;and&nbsp;returns&nbsp;the&nbsp;winner&nbsp;if&nbsp;one&nbsp;has&nbsp;been&nbsp;found.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>RED</strong> = (255, 0, 0)<br>
+<strong>SQUARE_SIZE</strong> = 85<br>
+<strong>WHITE</strong> = (255, 255, 255)<br>
+<strong>YELLOW</strong> = (255, 255, 0)</td></tr></table>
+</body></html>
