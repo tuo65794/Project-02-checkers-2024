@@ -40,15 +40,17 @@ class SecondMenu:
     The SecondMenu class consists of a String color, which represents the color of the board chosen by the user.
     The class also has three functions, start_game_menu, start_game_vs_player, and start_game_vs_computer.
     """
+    
+    def __init__(self, track):
+        self.selected_music_track = track
+        self.background_music = BackgroundMusic([track])
+    
     color = RED
     def start_game_menu(self):
         """
         The start game menu function displays the second menu of the game, which allows the user to choose between playing against another player or against the computer.
         """
-        tracks = ["music/Track1.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3", "music/Track5.mp3", "music/Track6.mp3", "music/Track7.mp3", "music/Track8.mp3"]
-        background_music = BackgroundMusic(tracks)
-        background_music.start_music_loop()
-        
+     
         
         global player1_name, player2_name
         start_game_screen = pygame.display.set_mode([Width, Height])
@@ -226,6 +228,9 @@ class SecondMenu:
                     pos = pygame.mouse.get_pos()
                     row, col = get_row_col_from_mouse(pos)
                     game.select(row, col)
+                    # Check for background music event
+                if event.type == background_music.SONG_END:
+                        background_music.handle_event(event)
 
             game.update()
 
@@ -270,5 +275,8 @@ class SecondMenu:
                     pos = pygame.mouse.get_pos()
                     row, col = get_row_col_from_mouse(pos)
                     game.select(row, col)
+                    
+                if event.type == background_music.SONG_END:
+                        background_music.handle_event(event)
 
             game.update()

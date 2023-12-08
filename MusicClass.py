@@ -24,6 +24,3 @@ class BackgroundMusic:
         if event.type == self.SONG_END:
             self.play_music()
 
-tracks = ["music/Track1.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3", "music/Track5.mp3", "music/Track6.mp3", "music/Track7.mp3", "music/Track8.mp3"]
-background_music = BackgroundMusic(tracks)
-background_music.start_music_loop()

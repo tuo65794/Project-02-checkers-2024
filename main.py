@@ -7,6 +7,8 @@ import pygame
 from SecondMenu import SecondMenu
 from constants import BLUE, YELLOW, RED, GREEN
 from ScoreManager import ScoreManager
+from SecondMenu import SecondMenu
+
 
 pygame.init()
 pygame.mixer.init() # initialize pygame mixer for music
@@ -21,6 +23,9 @@ pygame.display.set_caption("Checkers+")
 tracks = ["music/Track1.mp3", "music/Track2.mp3", "music/Track3.mp3", "music/Track4.mp3", "music/Track5.mp3", "music/Track6.mp3", "music/Track7.mp3", "music/Track8.mp3"] # can add more or delete tracks if we do not like them
 current_track = 0
 SONG_END = pygame.USEREVENT + 1
+second_menu = SecondMenu(tracks)
+
+
 def music_loop():
     """
     The music loop function loops through the music tracks in the tracks list.
@@ -57,8 +62,7 @@ credits_rect1 = credits_text1.get_rect(center=(Width // 2, 650))
 credits_text2 = credits_font.render(credits2, True, (255, 255, 255))
 credits_rect2 = credits_text2.get_rect(center=(Width // 2, 670))
 
-second_menu_instance = SecondMenu()
-
+second_menu_instance = SecondMenu(tracks)
 def main():
     """
     The main function is the main menu of the game. It displays the title, message, and credits, and holds user interaction with buttons. 
