@@ -10,6 +10,9 @@ from ScoreManager import ScoreManager
 from constants import RED, SQUARE_SIZE, WHITE
 from game import Game
 from computer import minimax
+from MusicClass import BackgroundMusic
+from SharedObjects import background_music
+
 
 Width, Height = 1000, 700
 background_image = pygame.image.load("checkers.jpg")
@@ -37,11 +40,18 @@ class SecondMenu:
     The SecondMenu class consists of a String color, which represents the color of the board chosen by the user.
     The class also has three functions, start_game_menu, start_game_vs_player, and start_game_vs_computer.
     """
+    
+    def __init__(self, track):
+        self.selected_music_track = track
+        self.background_music = BackgroundMusic([track])
+    
     color = RED
     def start_game_menu(self):
         """
         The start game menu function displays the second menu of the game, which allows the user to choose between playing against another player or against the computer.
         """
+     
+        
         global player1_name, player2_name
         start_game_screen = pygame.display.set_mode([Width, Height])
 
@@ -174,6 +184,8 @@ class SecondMenu:
                         score_manager.save_scores()
                         return
                 # score_manager.save_scores() # now inside elif so scores are updated before returning to main
+                    elif event.type == self.background_music.SONG_END:
+                        self.background_music.handle_event(event)
                   
     def start_game_vs_player(self, screen):
         """
@@ -216,6 +228,9 @@ class SecondMenu:
                     pos = pygame.mouse.get_pos()
                     row, col = get_row_col_from_mouse(pos)
                     game.select(row, col)
+                    # Check for background music event
+                if event.type == background_music.SONG_END:
+                        background_music.handle_event(event)
 
             game.update()
 
@@ -260,5 +275,8 @@ class SecondMenu:
                     pos = pygame.mouse.get_pos()
                     row, col = get_row_col_from_mouse(pos)
                     game.select(row, col)
+                    
+                if event.type == background_music.SONG_END:
+                        background_music.handle_event(event)
 
             game.update()
