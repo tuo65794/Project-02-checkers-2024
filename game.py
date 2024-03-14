@@ -89,12 +89,12 @@ class Game:
         """
         text = "Last 10 Players Moves: "
         text_surface = self.font.render(text, True, self.text_color)
-        self.screen.blit(text_surface, (715, 450))
+        self.screen.blit(text_surface, (695, 450))
         move_location_starter = 470
         for i in range(min(10, len(self.history_moves))):  # Ensure you don't go out of bounds
             moves = str(i+1) + ". " + self.history_moves[i]  # Add a space after the dot for better formatting
             moves_surface = self.font.render(moves, True, self.text_color)
-            self.screen.blit(moves_surface, (715, move_location_starter + i * 20))  # Adjust y-coordinate
+            self.screen.blit(moves_surface, (695, move_location_starter + i * 20))  # Adjust y-coordinate
 
     def update(self): 
         """
@@ -163,10 +163,17 @@ class Game:
                 self.board.remove(skipped)
                 if(self.turn == RED):
                     self.history_moves.insert(0, move)
-                    move = "Red jump White"
+                    if(len(skipped)>1):
+                        move = "Red DoubleJump White"
+                    else:
+                        move = "Red jump White"
                 else: 
                     self.history_moves.insert(0, move)
-                    move = "White jump Red"
+                    if(len(skipped)>1):
+                        move = "White DoubleJump Red"
+                    else:
+                        move = "White jump Red"
+
             self.history_moves.insert(0, move)
             self.change_turn()
             self.turn_start_time = pygame.time.get_ticks()  # Reset the turn timer
