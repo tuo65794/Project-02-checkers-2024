@@ -148,12 +148,12 @@ class Game:
         if self.selected and piece == 0 and (row, col) in self.valid_moves:
             self.board.move(self.selected, row, col)
             if(self.turn == RED):
-                move = f"Red[{current_row}:{current_column}] to [{row + 1}:{col + 1}]"
+                move = f"Red[{current_column},{9-current_row}] to [{col + 1},{9-(row + 1)}]"
                 if self.board.red_kings>current_red_king:
                     self.history_moves.insert(0, move)
                     move = "Red King"
             else:
-                move = f"White[{current_row}:{current_column}] to [{row + 1}:{col + 1}]"
+                move = f"White[{current_column},{9-current_row}] to [{col + 1},{9-(row + 1)}]"
                 if self.board.white_kings>current_white_king:
                     self.history_moves.insert(0, move)
                     move = "White King"
