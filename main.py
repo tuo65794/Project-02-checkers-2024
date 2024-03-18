@@ -81,10 +81,13 @@ def main():
                    second_menu_instance.start_game_menu()
                 if buttons[2].collidepoint(event.pos): # if mouse is clicked on tutorial button
                     tutorial()
+                if buttons[5].collidepoint(event.pos):
+                    TempleNews()
                 elif buttons[1].collidepoint(event.pos): # if mouse is clicked on settings button
                     settings()
                 elif buttons[4].collidepoint(event.pos): # if mouse is clicked on leaderboard button (not yet implemented)
                     board_customization()
+
                 # Check if the current song has finished, loop to next song
             elif event.type == SONG_END:
                 music_loop()
@@ -304,7 +307,37 @@ def menu_buttons():
     screen.blit(button_text, button_text_rect)
     
     return button_rect, button_rect_2, button_rect_3, button_rect_4, button_rect_5, button_rect_6
+def TempleNews():
+    
+    # load image used in tutorial
+    News_screen = pygame.display.set_mode([Width, Height])
+    News_screen.fill((128, 128, 128))
 
+    # First message
+    News_font = pygame.font.Font(None, 64)
+    News_text = News_font.render("Temple News", True, (255, 255, 255))
+    News_rect = News_text.get_rect(center=(Width // 2, 50))
+    News_screen.blit(News_text, News_rect)
+
+    # Exit button to return back to menu
+    exit_button_font = pygame.font.Font(None, 32)
+    exit_button_text = exit_button_font.render("Exit Temple News", True, (255, 255, 255))
+    exit_button_rect = exit_button_text.get_rect(center=(Width // 2, Height - 50))
+    pygame.draw.rect(News_screen, (64, 64, 64), exit_button_rect.inflate(20, 10))
+    News_screen.blit(exit_button_text, exit_button_rect)
+
+    pygame.display.flip()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if exit_button_rect.collidepoint(event.pos):  # if exit tutorial button is clicked
+                    return  # exit tutorial and return to menu
+            elif event.type == SONG_END:
+                music_loop()
 def tutorial(): 
     """
     The tutorial function displays the tutorial screen. It displays the tutorial text and image, and allows the user to exit the tutorial after clicking the exit button.
