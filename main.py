@@ -274,8 +274,8 @@ def menu_buttons():
     screen.blit(board_icon_resized, board_icon_rect.topleft)  # Draw the icon after drawing the button
     screen.blit(button_text, button_text_rect)
     
-    # Temple Twitter News Button
-    twitter_icon = pygame.image.load('pics/twitter_icon.png')
+    # Temple Reddit News Button
+    reddit_icon = pygame.image.load('pics/reddit_icon.png')
     
     color = (128, 128, 128) # grey
     cursor_color = (100, 100, 100) # darker grey
@@ -289,8 +289,8 @@ def menu_buttons():
     screen.blit(button_text, button_text_rect)
 
     # Draw the icon next to the text with the specified size
-    twitter_icon_resized = pygame.transform.scale(twitter_icon, icon_size)
-    twitter_icon_rect = twitter_icon_resized.get_rect(topleft=(Width // 2 - 150 + 10, Height // 3 + 285 + (button_height - icon_size[1]) // 2))
+    reddit_icon_resized = pygame.transform.scale(reddit_icon, icon_size)
+    reddit_icon_rect = reddit_icon_resized.get_rect(topleft=(Width // 2 - 150 + 10, Height // 3 + 285 + (button_height - icon_size[1]) // 2))
 
     pygame.draw.rect(screen, color, pygame.Rect(position, size))
     screen.blit(button_text, button_text_rect)
@@ -303,7 +303,7 @@ def menu_buttons():
     else:
         pygame.draw.rect(screen, color, button_rect_6) # stay original color if cursor not hovering over
 
-    screen.blit(twitter_icon_resized, twitter_icon_rect.topleft)  # Draw the icon after drawing the button
+    screen.blit(reddit_icon_resized, reddit_icon_rect.topleft)  # Draw the icon after drawing the button
     screen.blit(button_text, button_text_rect)
     
     return button_rect, button_rect_2, button_rect_3, button_rect_4, button_rect_5, button_rect_6
