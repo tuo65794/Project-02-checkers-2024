@@ -31,6 +31,7 @@ class Game:
         self.screen = pygame.display.set_mode((1000, 700))
         self.player1 = player1
         self.player2 = player2
+        self.history_moves= []
 
     def draw_valid_moves(self, moves):
         """
@@ -40,7 +41,6 @@ class Game:
             row, col = move
             pygame.draw.rect(self.screen, YELLOW, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
-        self.history_moves= []
         
     def check_turn_timeout(self):
         """
