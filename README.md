@@ -11,6 +11,12 @@ Checkers+ is an exciting Python-based game that offers a modern twist on the cla
 # Build and Installation Guide (Windows)
 - Download the latest release from this repository. For Windows users, inside the release should be a folder containing the Checkers+ application. After extracting the folder,
 simply run the application from inside the folder.
+- install pygames to run the game
+  ```bash
+  python -m pip install pygame
+- install redditwarp inorder to view "Temple News" which pulls reddit posts from r/Temple
+  ```bash
+  python -m pip install redditwarp
 - If you would like to download the repository and build the application using Python tools yourself (for users who are interested in contributing or changing code):
 - First, if your machine does not have Python, download the latest version of Python. This can be found here: https://www.python.org/downloads/
 - Create a folder and download the most recent release in this repository. Import all files into this folder.
