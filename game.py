@@ -31,6 +31,15 @@ class Game:
         self.screen = pygame.display.set_mode((1000, 700))
         self.player1 = player1
         self.player2 = player2
+
+    def draw_valid_moves(self, moves):
+        """
+        Draw valid moves on the board.
+        """
+        for move in moves:
+            row, col = move
+            pygame.draw.rect(self.screen, YELLOW, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+
         self.history_moves= []
         
     def check_turn_timeout(self):
@@ -101,6 +110,7 @@ class Game:
         The update function updates the board to show the current board and features.
         """
         self.board.draw(self.win)
+        self.draw_valid_moves(self.valid_moves)  
         self.show_available_moves(self.valid_moves)
         self.check_turn_timeout()
         self.display_turn()
@@ -108,6 +118,7 @@ class Game:
         self.display_player_names(self.player1, self.player2)
         self.display_history_moves()
         pygame.display.update()
+
         
     def winner(self): 
         """
@@ -180,6 +191,8 @@ class Game:
             return True
 
         return False
+    
+        
 
     def show_available_moves(self, moves): 
         """
