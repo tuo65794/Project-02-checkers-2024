@@ -4,14 +4,19 @@ The main file holds menu operations for the game including sound, settings, lead
 
 """
 import pygame
+import redditwarp.SYNC
 from SecondMenu import SecondMenu
 from constants import BLUE, YELLOW, RED, GREEN
 from ScoreManager import ScoreManager
 from SecondMenu import SecondMenu
 
 
+
 pygame.init()
 pygame.mixer.init() # initialize pygame mixer for music
+
+#create client for redditwarp
+client = redditwarp.SYNC.Client()
 
 # set up the drawing window
 Width, Height = 1000, 700 # updated size
@@ -318,6 +323,24 @@ def TempleNews():
     News_text = News_font.render("Temple News", True, (255, 255, 255))
     News_rect = News_text.get_rect(center=(Width // 2, 50))
     News_screen.blit(News_text, News_rect)
+
+    # Display posts
+    posts = client.p.subreddit.pull.hot("Temple", 5)
+    post_list = list(posts)
+    Post_Starting_Y = 100  # Starting Y position for the first post, adjusted for better spacing from the title
+    Posts_font = pygame.font.Font(None, 24)
+
+    # Calculate spacing based on the screen height and number of posts
+    # This tries to evenly distribute the posts vertically
+    num_posts = len(post_list)
+    spacing = (Height - Post_Starting_Y - 100) // num_posts  # Adjust the bottom padding as needed
+
+    for subm in post_list:
+        Posts_text = Posts_font.render("{0.permalink}".format(subm), True, (255, 255, 255))
+        # Use Post_Starting_Y for the Y coordinate directly, without subtracting from Height
+        Posts_rect = Posts_text.get_rect(center=(Width // 2, Post_Starting_Y))
+        News_screen.blit(Posts_text, Posts_rect)
+        Post_Starting_Y += spacing  # Increment Y position for the next post
 
     # Exit button to return back to menu
     exit_button_font = pygame.font.Font(None, 32)
